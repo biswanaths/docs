@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Nested Type</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Reference [master]" /><link rel="up" href="mapping-types.html" title="Types" /><link rel="prev" href="mapping-root-object-type.html" title="Root Object Type" /><link rel="next" href="mapping-ip-type.html" title="IP Type" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link rel="shortcut icon" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/favicon.ico" /><link rel="stylesheet" id="prettify-gc-syntax-highlighter-css" href="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/prettify.css?ver=3.5.2" type="text/css" media="all" /><link rel="stylesheet" id="appStyles-css" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/css/main.css?ver=1395693666" type="text/css" media="all" /><script type="text/javascript" src="http://www.elasticsearch.org/wp-includes/js/jquery/jquery.js?ver=1.8.3"></script><link rel="stylesheet" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/style.css" type="text/css" media="all" /><script src="//cdn.optimizely.com/js/281975433.js"></script><script src="//fast.wistia.com/static/iframe-api-v1.js"></script><script type="text/javascript">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Children Aggregation</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Reference [master]" /><link rel="up" href="search-aggregations.html" title="Aggregations" /><link rel="prev" href="search-aggregations-bucket-reverse-nested-aggregation.html" title="Reverse nested Aggregation" /><link rel="next" href="search-aggregations-bucket-terms-aggregation.html" title="Terms Aggregation" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link rel="shortcut icon" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/favicon.ico" /><link rel="stylesheet" id="prettify-gc-syntax-highlighter-css" href="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/prettify.css?ver=3.5.2" type="text/css" media="all" /><link rel="stylesheet" id="appStyles-css" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/css/main.css?ver=1395693666" type="text/css" media="all" /><script type="text/javascript" src="http://www.elasticsearch.org/wp-includes/js/jquery/jquery.js?ver=1.8.3"></script><link rel="stylesheet" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/style.css" type="text/css" media="all" /><script src="//cdn.optimizely.com/js/281975433.js"></script><script src="//fast.wistia.com/static/iframe-api-v1.js"></script><script type="text/javascript">
       jQuery(function() {
         jQuery('div.navheader+div').css('minHeight',jQuery('div.toc').height()+'px');
         jQuery('article.guide_content a[id]').each(function() { this.href='#'+this.id });
@@ -22,117 +22,323 @@
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
       <![endif]--><header><nav role="navigation" id="mobile-nav-container" class="off-canvas-nav"><ul id="mobile-nav" class="menu"><li id="menu-item-75892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75892"><a href="/overview/">Overview</a><ul class="sub-menu"><li id="menu-item-75895" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75895"><a href="/overview/">Overview</a></li><li id="menu-item-68760" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68760"><a href="/overview/elasticsearch/">Elasticsearch</a></li><li id="menu-item-75894" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75894"><a href="/overview/marvel/">Marvel</a></li><li id="menu-item-68758" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68758"><a href="/overview/kibana/">Kibana</a></li><li id="menu-item-68756" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68756"><a href="/overview/kibana/installation/">Kibana Installation</a></li><li id="menu-item-68757" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68757"><a href="/overview/kibana/support/">Kibana Support</a></li><li id="menu-item-68759" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68759"><a href="/overview/logstash/">Logstash</a></li><li id="menu-item-74019" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74019"><a href="/overview/hadoop/">Hadoop</a></li><li id="menu-item-75893" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75893"><a href="/overview/elkdownloads/">ELK Downloads</a></li></ul></li><li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="/resources/">Resources</a><ul class="sub-menu"><li id="menu-item-76342" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76342"><a href="/guide/">Guide</a></li><li id="menu-item-4843" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4843"><a href="/videos/">Videos</a></li></ul></li><li id="menu-item-657" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-657"><a href="/community/">Community</a></li><li id="menu-item-68802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68802"><a href="/case-studies/">Case Studies</a></li><li id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45"><a href="/blog/">Blog</a></li><li id="menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a target="_blank" href="http://elasticsearch.com">Company</a></li></ul><ul class="add-on"><li><a href="/overview/elkdownloads/">Download</a></li></ul></nav><div class="container"><div id="header-inner"><h1 id="header-logo"><a class="faux" href="http://www.elasticsearch.org">Elasticsearch</a></h1><nav role="navigation" id="main-nav-container" class="main-nav"><ul id="top-nav" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75892"><a href="/overview/">Overview</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-53 current_page_item menu-item-55"><a href="/resources/">Resources</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-657"><a href="/community/">Community</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68802"><a href="/case-studies/">Case Studies</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45"><a href="/blog/">Blog</a></li><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a target="_blank" href="http://elasticsearch.com">Company</a></li></ul><ul class="add-on"><li><a class="btn btn-primary" href="/overview/elkdownloads/">Download</a></li></ul></nav><div class="slide-trigger navigation" id="nav-trigger" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><hr /><ul id="sub_nav"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76342"><a href="/guide/">Guide</a></li><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4843"><a href="/videos/">Videos</a></li></ul></div></div></header><div class="global_wrapper"><div class="page_content"><div class="container"><section id="search_container" class="active"><form id="blog_search" role="search" action="/" method="get"><div class="blog_search_wrapper"><input id="s" name="s" class="search_term" type="text" placeholder="search" autocomplete="off" tabindex="1" /><input type="submit" class="search_submit" value=" " /><ul id="results"></ul></div></form></section><section class="full_width guide"><article class="guide_content"><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Reference
       [master]
-    </a></span> » <span class="breadcrumb-link"><a href="mapping.html">Mapping </a></span> » <span class="breadcrumb-link"><a href="mapping-types.html">Types</a></span> » <span class="breadcrumb-node">Nested Type</span></div><div class="navheader"><span class="prev"><a href="mapping-root-object-type.html">
+    </a></span> » <span class="breadcrumb-link"><a href="search.html">Search APIs </a></span> » <span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span> » <span class="breadcrumb-node">Children Aggregation</span></div><div class="navheader"><span class="prev"><a href="search-aggregations-bucket-reverse-nested-aggregation.html">
               « 
-              Root Object Type</a>
+              Reverse nested Aggregation</a>
            
         </span><span class="next">
            
-          <a href="mapping-ip-type.html">IP Type
+          <a href="search-aggregations-bucket-terms-aggregation.html">Terms Aggregation
                »
-            </a></span></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a id="mapping-nested-type"></a>Nested Type<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/mapping/types/nested-type.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="mapping-core-types.html">Core Types</a></span></dt><dt><span class="section"><a href="mapping-array-type.html">Array Type</a></span></dt><dt><span class="section"><a href="mapping-object-type.html">Object Type</a></span></dt><dt><span class="section"><a href="mapping-root-object-type.html">Root Object Type</a></span></dt><dt><span class="section"><a href="mapping-nested-type.html">Nested Type</a></span></dt><dt><span class="section"><a href="mapping-ip-type.html">IP Type</a></span></dt><dt><span class="section"><a href="mapping-geo-point-type.html">Geo Point Type</a></span></dt><dt><span class="section"><a href="mapping-geo-shape-type.html">Geo Shape Type</a></span></dt><dt><span class="section"><a href="mapping-attachment-type.html">Attachment Type</a></span></dt></dl></div><p>The <code class="literal">nested</code> type works like the <a class="link" href="mapping-object-type.html" title="Object Type"><code class="literal">object</code> type</a> except
-that an array of <code class="literal">objects</code> is flattened, while an array of <code class="literal">nested</code>  objects
-allows each object to be queried independently.  To explain, consider this
-document:</p><pre class="programlisting prettyprint lang-js">{
-    "group" : "fans",
-    "user" : [
-        {
-            "first" : "John",
-            "last" :  "Smith"
-        },
-        {
-            "first" : "Alice",
-            "last" :  "White"
-        },
-    ]
-}</pre><p>If the <code class="literal">user</code> field is of type <code class="literal">object</code>, this document would be indexed
-internally something like this:</p><pre class="programlisting prettyprint lang-js">{
-    "group" :        "fans",
-    "user.first" : [ "alice", "john" ],
-    "user.last" :  [ "smith", "white" ]
-}</pre><p>The <code class="literal">first</code> and <code class="literal">last</code> fields are flattened, and the association between
-<code class="literal">alice</code> and <code class="literal">white</code> is lost.  This document would incorrectly match a query
-for <code class="literal">alice AND smith</code>.</p><p>If the <code class="literal">user</code> field is of type <code class="literal">nested</code>, each object is indexed as a separate
-document, something like this:</p><pre class="programlisting prettyprint lang-js">{ <a id="CO54-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
-    "user.first" : "alice",
-    "user.last" :  "white"
-}
-{ <a id="CO54-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>
-    "user.first" : "john",
-    "user.last" :  "smith"
-}
-{ <a id="CO54-3"></a><span><img src="images/icons/callouts/3.png" alt="" /></span>
-    "group" :       "fans"
-}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO54-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> <a href="#CO54-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
-Hidden nested documents.
-</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO54-3"><span><img src="images/icons/callouts/3.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
-Visible “parent” document.
-</p></td></tr></table></div><p>By keeping each nested object separate, the association between the
-<code class="literal">user.first</code> and <code class="literal">user.last</code> fields is maintained. The query for <code class="literal">alice AND
-smith</code> would <span class="strong"><strong>not</strong></span> match this document.</p><p>Searching on nested docs can be done using either the
-<a class="link" href="query-dsl-nested-query.html" title="Nested Query">nested query</a> or
-<a class="link" href="query-dsl-nested-filter.html" title="Nested Filter">nested filter</a>.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_mapping"></a>Mapping<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/mapping/types/nested-type.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>The mapping for <code class="literal">nested</code> fields is the same as <code class="literal">object</code> fields, except that it
-uses type <code class="literal">nested</code>:</p><pre class="programlisting prettyprint lang-js">{
-    "type1" : {
-        "properties" : {
-            "users" : {
-                "type" : "nested",
-                "properties": {
-                    "first" : {"type": "string" },
-                    "last"  : {"type": "string" }
-                }
-            }
+            </a></span></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a id="search-aggregations-bucket-children-aggregation"></a>Children Aggregation<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/search/aggregations/bucket/children-aggregation.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="search-aggregations-metrics-min-aggregation.html">Min Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-max-aggregation.html">Max Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-sum-aggregation.html">Sum Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-avg-aggregation.html">Avg Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-stats-aggregation.html">Stats Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-extendedstats-aggregation.html">Extended Stats Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-valuecount-aggregation.html">Value Count Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-percentile-aggregation.html">Percentiles Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-percentile-rank-aggregation.html">Percentile Ranks Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-cardinality-aggregation.html">Cardinality Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-geobounds-aggregation.html">Geo Bounds Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-metrics-top-hits-aggregation.html">Top hits Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-global-aggregation.html">Global Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-filter-aggregation.html">Filter Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-filters-aggregation.html">Filters Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-missing-aggregation.html">Missing Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-nested-aggregation.html">Nested Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-reverse-nested-aggregation.html">Reverse nested Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-children-aggregation.html">Children Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-terms-aggregation.html">Terms Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-significantterms-aggregation.html">Significant Terms Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-range-aggregation.html">Range Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-daterange-aggregation.html">Date Range Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-iprange-aggregation.html">IPv4 Range Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-histogram-aggregation.html">Histogram Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-datehistogram-aggregation.html">Date Histogram Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-geodistance-aggregation.html">Geo Distance Aggregation</a></span></dt><dt><span class="section"><a href="search-aggregations-bucket-geohashgrid-aggregation.html">GeoHash grid Aggregation</a></span></dt></dl></div><p>A special single bucket aggregation that enables aggregating from buckets on parent document types to buckets on child documents.</p><p>This aggregation relies on the <a class="link" href="mapping-parent-field.html" title="_parent">_parent field</a> in the mapping. This aggregation has a single option:
+* <code class="literal">type</code> - The what child type the buckets in the parent space should be mapped to.</p><p>For example, let’s say we have an index of questions and answers. The answer type has the following <code class="literal">_parent</code> field in the mapping:</p><pre class="programlisting prettyprint lang-js">{
+    "answer" : {
+        "_parent" : {
+            "type" : "question"
         }
     }
-}</pre><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>changing an <code class="literal">object</code> type to <code class="literal">nested</code> type requires reindexing.</p></div></div><p>You may want to index inner objects both as <code class="literal">nested</code> fields <span class="strong"><strong>and</strong></span>  as flattened
-<code class="literal">object</code> fields, eg for highlighting.  This can be achieved by setting
-<code class="literal">include_in_parent</code> to <code class="literal">true</code>:</p><pre class="programlisting prettyprint lang-js">{
-    "type1" : {
-        "properties" : {
-            "users" : {
-                "type" : "nested",
-                "include_in_parent": true,
-                "properties": {
-                    "first" : {"type": "string" },
-                    "last"  : {"type": "string" }
-                }
+}</pre><p>The question typed document contain a tag field and the answer typed documents contain an owner field. With the <code class="literal">children</code>
+aggregation the tag buckets can be mapped to the owner buckets in a single request even though the two fields exist in
+two different kinds of documents.</p><p>An example of a question typed document:</p><pre class="programlisting prettyprint lang-js">{
+    "body": "&lt;p&gt;I have Windows 2003 server and i bought a new Windows 2008 server...",
+    "title": "Whats the best way to file transfer my site from server to a newer one?",
+    "tags": [
+        "windows-server-2003",
+        "windows-server-2008",
+        "file-transfer"
+    ],
+}</pre><p>An example of an answer typed document:</p><pre class="programlisting prettyprint lang-js">{
+    "owner": {
+        "location": "Norfolk, United Kingdom",
+        "display_name": "Sam",
+        "id": 48
+    },
+    "body": "&lt;p&gt;Unfortunately your pretty much limited to FTP...",
+    "creation_date": "2009-05-04T13:45:37.030"
+}</pre><p>The following request can be built that connects the two together:</p><pre class="programlisting prettyprint lang-js">{
+  "aggs": {
+    "top-tags": {
+      "terms": {
+        "field": "tags",
+        "size": 10
+      },
+      "aggs": {
+        "to-answers": {
+          "children": {
+            "type" : "answer" <a id="CO23-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+          },
+          "aggs": {
+            "top-names": {
+              "terms": {
+                "field": "owner.display_name",
+                "size": 10
+              }
             }
+          }
         }
+      }
     }
-}</pre><p>The result of indexing our example document would be something like this:</p><pre class="programlisting prettyprint lang-js">{ <a id="CO55-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
-    "user.first" : "alice",
-    "user.last" :  "white"
-}
-{ <a id="CO55-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>
-    "user.first" : "john",
-    "user.last" :  "smith"
-}
-{ <a id="CO55-3"></a><span><img src="images/icons/callouts/3.png" alt="" /></span>
-    "group" :        "fans",
-    "user.first" : [ "alice", "john" ],
-    "user.last" :  [ "smith", "white" ]
-}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO55-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> <a href="#CO55-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
-Hidden nested documents.
-</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO55-3"><span><img src="images/icons/callouts/3.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
-Visible “parent” document.
-</p></td></tr></table></div><p>Nested fields may contain other nested fields.  The <code class="literal">include_in_parent</code> object
-refers to the direct parent of the field, while the <code class="literal">include_in_root</code>
-parameter refers only to the topmost “root” object or document.</p><p>Nested docs will automatically use the root doc <code class="literal">_all</code> field only.</p><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong>Internal Implementation</strong></p></div></div></div><p>Internally, nested objects are indexed as additional documents, but,
-since they can be guaranteed to be indexed within the same "block", it
-allows for extremely fast joining with parent docs.</p><p>Those internal nested documents are automatically masked away when doing
-operations against the index (like searching with a match_all query),
-and they bubble out when using the nested query.</p><p>Because nested docs are always masked to the parent doc, the nested docs
-can never be accessed outside the scope of the <code class="literal">nested</code> query. For example
-stored fields can be enabled on fields inside nested objects, but there is
-no way of retrieving them, since stored fields are fetched outside of
-the <code class="literal">nested</code> query scope.</p><p>The <code class="literal">_source</code> field is always associated with the parent document and
-because of that field values via the source can be fetched for nested object.</p></div></div></div><div class="navfooter"><span class="prev"><a href="mapping-root-object-type.html">
+  }
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO23-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+The <code class="literal">type</code> points to type / mapping with the name <code class="literal">answer</code>.
+</p></td></tr></table></div><p>The above example returns the top question tags and per tag the top answer owners.</p><p>Possible response:</p><pre class="programlisting prettyprint lang-js">{
+  "aggregations": {
+    "top-tags": {
+      "buckets": [
+        {
+          "key": "windows-server-2003",
+          "doc_count": 25365, <a id="CO24-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+          "to-answers": {
+            "doc_count": 36004, <a id="CO24-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>
+            "top-names": {
+              "buckets": [
+                {
+                  "key": "Sam",
+                  "doc_count": 274
+                },
+                {
+                  "key": "chris",
+                  "doc_count": 19
+                },
+                {
+                  "key": "david",
+                  "doc_count": 14
+                },
+                ...
+              ]
+            }
+          }
+        },
+        {
+          "key": "linux",
+          "doc_count": 18342,
+          "to-answers": {
+            "doc_count": 6655,
+            "top-names": {
+              "buckets": [
+                {
+                  "key": "abrams",
+                  "doc_count": 25
+                },
+                {
+                  "key": "ignacio",
+                  "doc_count": 25
+                },
+                {
+                  "key": "vazquez",
+                  "doc_count": 25
+                },
+                ...
+              ]
+            }
+          }
+        },
+        {
+          "key": "windows",
+          "doc_count": 18119,
+          "to-answers": {
+            "doc_count": 24051,
+            "top-names": {
+              "buckets": [
+                {
+                  "key": "molly7244",
+                  "doc_count": 265
+                },
+                {
+                  "key": "david",
+                  "doc_count": 27
+                },
+                {
+                  "key": "chris",
+                  "doc_count": 26
+                },
+                ...
+              ]
+            }
+          }
+        },
+        {
+          "key": "osx",
+          "doc_count": 10971,
+          "to-answers": {
+            "doc_count": 5902,
+            "top-names": {
+              "buckets": [
+                {
+                  "key": "diago",
+                  "doc_count": 4
+                },
+                {
+                  "key": "albert",
+                  "doc_count": 3
+                },
+                {
+                  "key": "asmus",
+                  "doc_count": 3
+                },
+                ...
+              ]
+            }
+          }
+        },
+        {
+          "key": "ubuntu",
+          "doc_count": 8743,
+          "to-answers": {
+            "doc_count": 8784,
+            "top-names": {
+              "buckets": [
+                {
+                  "key": "ignacio",
+                  "doc_count": 9
+                },
+                {
+                  "key": "abrams",
+                  "doc_count": 8
+                },
+                {
+                  "key": "molly7244",
+                  "doc_count": 8
+                },
+                ...
+              ]
+            }
+          }
+        },
+        {
+          "key": "windows-xp",
+          "doc_count": 7517,
+          "to-answers": {
+            "doc_count": 13610,
+            "top-names": {
+              "buckets": [
+                {
+                  "key": "molly7244",
+                  "doc_count": 232
+                },
+                {
+                  "key": "chris",
+                  "doc_count": 9
+                },
+                {
+                  "key": "john",
+                  "doc_count": 9
+                },
+                ...
+              ]
+            }
+          }
+        },
+        {
+          "key": "networking",
+          "doc_count": 6739,
+          "to-answers": {
+            "doc_count": 2076,
+            "top-names": {
+              "buckets": [
+                {
+                  "key": "molly7244",
+                  "doc_count": 6
+                },
+                {
+                  "key": "alnitak",
+                  "doc_count": 5
+                },
+                {
+                  "key": "chris",
+                  "doc_count": 3
+                },
+                ...
+              ]
+            }
+          }
+        },
+        {
+          "key": "mac",
+          "doc_count": 5590,
+          "to-answers": {
+            "doc_count": 999,
+            "top-names": {
+              "buckets": [
+                {
+                  "key": "abrams",
+                  "doc_count": 2
+                },
+                {
+                  "key": "ignacio",
+                  "doc_count": 2
+                },
+                {
+                  "key": "vazquez",
+                  "doc_count": 2
+                },
+                ...
+              ]
+            }
+          }
+        },
+        {
+          "key": "wireless-networking",
+          "doc_count": 4409,
+          "to-answers": {
+            "doc_count": 6497,
+            "top-names": {
+              "buckets": [
+                {
+                  "key": "molly7244",
+                  "doc_count": 61
+                },
+                {
+                  "key": "chris",
+                  "doc_count": 5
+                },
+                {
+                  "key": "mike",
+                  "doc_count": 5
+                },
+                ...
+              ]
+            }
+          }
+        },
+        {
+          "key": "windows-8",
+          "doc_count": 3601,
+          "to-answers": {
+            "doc_count": 4263,
+            "top-names": {
+              "buckets": [
+                {
+                  "key": "molly7244",
+                  "doc_count": 3
+                },
+                {
+                  "key": "msft",
+                  "doc_count": 2
+                },
+                {
+                  "key": "user172132",
+                  "doc_count": 2
+                },
+                ...
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO24-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+The number of question documents with the tag <code class="literal">windows-server-2003</code>.
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO24-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+The number of answer documents that are related to question documents with the tag <code class="literal">windows-server-2003</code>.
+</p></td></tr></table></div></div><div class="navfooter"><span class="prev"><a href="search-aggregations-bucket-reverse-nested-aggregation.html">
               « 
-              Root Object Type</a>
+              Reverse nested Aggregation</a>
            
         </span><span class="next">
            
-          <a href="mapping-ip-type.html">IP Type
+          <a href="search-aggregations-bucket-terms-aggregation.html">Terms Aggregation
                »
             </a></span></div></article></section></div></div></div><footer><div id="footer_container" class="full_wrapper"><div class="container"><nav role="navigation"><ul id="footer_nav" class="menu"><li id="menu-item-36" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-36"><a target="_blank" href="http://elasticsearch.com">Company</a></li><li id="menu-item-74980" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74980"><a href="/resources/">Resources</a></li><li id="menu-item-3106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3106"><a href="/terms-of-use/">Terms</a></li><li id="menu-item-3107" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3107"><a href="/privacy-and-cookie-policy/">Privacy</a></li><li id="menu-item-3105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3105"><a href="/contact/">Contact</a></li><li id="menu-item-39" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39"><a href="/blog/">Blog</a></li></ul></nav><div id="social"><a href="https://twitter.com/elasticsearch" class="social_icons" target="_blank"><i class="twitter"></i></a><a href="https://www.facebook.com/elasticsearch" class="social_icons" target="_blank"><i class="facebook"></i></a></div><div id="footer_form"><label class="form_label">Sign up for updates!</label><div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_4"><a id="gf_4" name="gf_4" class="gform_anchor"></a><form method="post" enctype="multipart/form-data" target="gform_ajax_frame_4" id="gform_4" action="/empty-template/#gf_4"><div class="gform_body"><ul id="gform_fields_4" class="gform_fields top_label description_below"><li id="field_4_6" class="gfield               gfield_contains_required"><label class="gfield_label" for="input_4_6">enter you email<span class="gfield_required">*</span></label><div class="ginput_container"><input name="input_6" id="input_4_6" type="email" value="" class="medium" tabindex="50" /></div></li><li id="field_4_2" class="gfield     gform_hidden"><input name="input_2" id="input_4_2" type="hidden" class="gform_hidden" value="813-MAM-392" /></li><li id="field_4_3" class="gfield     gform_hidden"><input name="input_3" id="input_4_3" type="hidden" class="gform_hidden" value="WEB.org" /></li><li id="field_4_4" class="gfield     gform_hidden"><input name="input_4" id="input_4_4" type="hidden" class="gform_hidden" value="WEB.org - Footer - Updates" /></li></ul></div><script type="text/javascript">//<![CDATA[
             jQuery(function(){
