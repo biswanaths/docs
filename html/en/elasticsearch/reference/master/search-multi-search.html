@@ -39,7 +39,7 @@ header\n
 body\n</pre><p>The header part includes which index / indices to search on, optional
 (mapping) types to search on, the <code class="literal">search_type</code>, <code class="literal">preference</code>, and
 <code class="literal">routing</code>. The body includes the typical search body request (including
-the <code class="literal">query</code>, <code class="literal">facets</code>, <code class="literal">from</code>, <code class="literal">size</code>, and so on). Here is an example:</p><pre class="programlisting prettyprint lang-js">$ cat requests
+the <code class="literal">query</code>, <code class="literal">aggregations</code>, <code class="literal">from</code>, <code class="literal">size</code>, and so on). Here is an example:</p><pre class="programlisting prettyprint lang-js">$ cat requests
 {"index" : "test"}
 {"query" : {"match_all" : {}}, "from" : 0, "size" : 10}
 {"index" : "test", "search_type" : "count"}

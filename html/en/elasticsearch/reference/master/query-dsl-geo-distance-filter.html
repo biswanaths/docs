@@ -54,8 +54,8 @@ filter:</p><pre class="programlisting prettyprint lang-js">{
             }
         }
     }
-}</pre><h4><a id="_accepted_formats_3"></a>Accepted Formats<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>In much the same way the <code class="literal">geo_point</code> type can accept different
-representation of the geo point, the filter can accept it as well:</p><h5><a id="_lat_lon_as_properties_4"></a>Lat Lon As Properties<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h5><pre class="programlisting prettyprint lang-js">{
+}</pre><h4><a id="_accepted_formats_2"></a>Accepted Formats<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>In much the same way the <code class="literal">geo_point</code> type can accept different
+representation of the geo point, the filter can accept it as well:</p><h5><a id="_lat_lon_as_properties_3"></a>Lat Lon As Properties<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h5><pre class="programlisting prettyprint lang-js">{
     "filtered" : {
         "query" : {
             "match_all" : {}
@@ -70,7 +70,7 @@ representation of the geo point, the filter can accept it as well:</p><h5><a id=
             }
         }
     }
-}</pre><h5><a id="_lat_lon_as_array_4"></a>Lat Lon As Array<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h5><p>Format in <code class="literal">[lon, lat]</code>, note, the order of lon/lat here in order to
+}</pre><h5><a id="_lat_lon_as_array_3"></a>Lat Lon As Array<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h5><p>Format in <code class="literal">[lon, lat]</code>, note, the order of lon/lat here in order to
 conform with <a class="ulink" href="http://geojson.org/" target="_top">GeoJSON</a>.</p><pre class="programlisting prettyprint lang-js">{
     "filtered" : {
         "query" : {
@@ -83,7 +83,7 @@ conform with <a class="ulink" href="http://geojson.org/" target="_top">GeoJSON</
             }
         }
     }
-}</pre><h5><a id="_lat_lon_as_string_4"></a>Lat Lon As String<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h5><p>Format in <code class="literal">lat,lon</code>.</p><pre class="programlisting prettyprint lang-js">{
+}</pre><h5><a id="_lat_lon_as_string_3"></a>Lat Lon As String<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h5><p>Format in <code class="literal">lat,lon</code>.</p><pre class="programlisting prettyprint lang-js">{
     "filtered" : {
         "query" : {
             "match_all" : {}
@@ -95,7 +95,7 @@ conform with <a class="ulink" href="http://geojson.org/" target="_top">GeoJSON</
             }
         }
     }
-}</pre><h5><a id="_geohash_4"></a>Geohash<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h5><pre class="programlisting prettyprint lang-js">{
+}</pre><h5><a id="_geohash_3"></a>Geohash<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h5><pre class="programlisting prettyprint lang-js">{
     "filtered" : {
         "query" : {
             "match_all" : {}
@@ -107,7 +107,7 @@ conform with <a class="ulink" href="http://geojson.org/" target="_top">GeoJSON</
             }
         }
     }
-}</pre><h4><a id="_options_4"></a>Options<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>The following are options allowed on the filter:</p><div class="horizontal"><table cellpadding="4px" border="0"><colgroup><col /><col /></colgroup><tbody valign="top"><tr><td valign="top">
+}</pre><h4><a id="_options_3"></a>Options<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/query-dsl/filters/geo-distance-filter.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>The following are options allowed on the filter:</p><div class="horizontal"><table cellpadding="4px" border="0"><colgroup><col /><col /></colgroup><tbody valign="top"><tr><td valign="top">
 <p>
 <code class="literal">distance</code>
 </p>
