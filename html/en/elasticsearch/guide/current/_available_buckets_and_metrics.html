@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Available Buckets and Metrics</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Elasticsearch" /><link rel="up" href="aggregations.html" title="Aggregations" /><link rel="prev" href="_one_final_modification.html" title="One final modification" /><link rel="next" href="_buckets_2.html" title="Buckets" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link rel="shortcut icon" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/favicon.ico" /><link rel="stylesheet" id="prettify-gc-syntax-highlighter-css" href="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/prettify.css?ver=3.5.2" type="text/css" media="all" /><link rel="stylesheet" id="appStyles-css" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/css/main.css?ver=1395693666" type="text/css" media="all" /><script type="text/javascript" src="http://www.elasticsearch.org/wp-includes/js/jquery/jquery.js?ver=1.8.3"></script><link rel="stylesheet" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/style.css" type="text/css" media="all" /><script src="//cdn.optimizely.com/js/281975433.js"></script><script src="//fast.wistia.com/static/iframe-api-v1.js"></script><script type="text/javascript">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Available Buckets and Metrics</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Elasticsearch" /><link rel="up" href="aggregations.html" title="Aggregations" /><link rel="prev" href="_one_final_modification.html" title="One final modification" /><link rel="next" href="_building_bar_charts.html" title="Building Bar Charts" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link rel="shortcut icon" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/favicon.ico" /><link rel="stylesheet" id="prettify-gc-syntax-highlighter-css" href="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/prettify.css?ver=3.5.2" type="text/css" media="all" /><link rel="stylesheet" id="appStyles-css" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/css/main.css?ver=1395693666" type="text/css" media="all" /><script type="text/javascript" src="http://www.elasticsearch.org/wp-includes/js/jquery/jquery.js?ver=1.8.3"></script><link rel="stylesheet" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/style.css" type="text/css" media="all" /><script src="//cdn.optimizely.com/js/281975433.js"></script><script src="//fast.wistia.com/static/iframe-api-v1.js"></script><script type="text/javascript">
       jQuery(function() {
         jQuery('div.navheader+div').css('minHeight',jQuery('div.toc').height()+'px');
         jQuery('article.guide_content a[id]').each(function() { this.href='#'+this.id });
@@ -26,20 +26,69 @@
            
         </span><span class="next">
            
-          <a href="_buckets_2.html">Buckets
+          <a href="_building_bar_charts.html">Building Bar Charts
                »
-            </a></span></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="_available_buckets_and_metrics"></a>Available Buckets and Metrics<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/28_bucket_metric_list.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="_buckets_2.html">Buckets</a></span></dt><dt><span class="section"><a href="_metrics_2.html">Metrics</a></span></dt></dl></div><p>There are a number of different buckets and metrics.  The reference documentation
+            </a></span></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="_available_buckets_and_metrics"></a>Available Buckets and Metrics<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/28_bucket_metric_list.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><div class="toc"><dl><dt><span class="chapter"><a href="_high_level_concepts.html">High-level concepts</a></span></dt><dt><span class="chapter"><a href="_aggregation_test_drive.html">Aggregation Test-drive</a></span></dt><dt><span class="chapter"><a href="_available_buckets_and_metrics.html">Available Buckets and Metrics</a></span></dt><dt><span class="chapter"><a href="_building_bar_charts.html">Building Bar Charts</a></span></dt><dt><span class="chapter"><a href="_looking_at_time.html">Looking at time</a></span></dt><dt><span class="chapter"><a href="_scoping_aggregations.html">Scoping Aggregations</a></span></dt><dt><span class="chapter"><a href="_filtering_queries_and_aggregations.html">Filtering Queries and Aggregations</a></span></dt><dt><span class="chapter"><a href="_sorting_multi_value_buckets.html">Sorting multi-value buckets</a></span></dt><dt><span class="chapter"><a href="_approximate_aggregations.html">Approximate Aggregations</a></span></dt><dt><span class="chapter"><a href="significant-terms.html">Significant Terms</a></span></dt><dt><span class="chapter"><a href="_controlling_memory_use_and_latency.html">Controlling memory use and latency</a></span></dt></dl></div><p>There are a number of different buckets and metrics.  The reference documentation
 does a great job describing the various parameters and how they affect
 the component.  Instead of re-describing them here, we are simply going to
 link to the reference docs and provide a brief description.  Skim the list
 so that you know what is available, and check the reference docs when you need
-exact parameters.</p></div><div class="navfooter"><span class="prev"><a href="_one_final_modification.html">
+exact parameters.</p><h3><a id="_buckets_2"></a>Buckets<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/28_bucket_metric_list.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-global-aggregation.html" target="_top">Global</a>: includes all documents in your index
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-filter-aggregation.html" target="_top">Filter</a>: only includes documents that match
+    the filter
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-missing-aggregation.html" target="_top">Missing</a>: all documents which <span class="emphasis"><em>do not</em></span> have
+    a particular field
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-nested-aggregation.html" target="_top">Nested</a>: a special bucket for working with
+    nested documents
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html" target="_top">Terms</a>: generates a new bucket for each unique term
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-range-aggregation.html" target="_top">Range</a>: creates arbitrary ranges which documents
+    fall into
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-daterange-aggregation.html" target="_top">Date Range</a>: similar to Range, but is calendar
+    aware
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-iprange-aggregation.html" target="_top">IPV4 Range</a>: similar to Range, but can handle "IP logic" like CIDR masks, etc
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-geodistance-aggregation.html" target="_top">Geo Distance</a>: similar to Range, but operates on
+    geo points
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-histogram-aggregation.html" target="_top">Histogram</a>: equal-width, dynamic ranges
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html" target="_top">Date Histogram</a>: similar to Histogram, but
+    calendar aware
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-geohashgrid-aggregation.html" target="_top">Geohash Grid</a>: partitions documents according to
+    what geohash grid they fall into
+</li></ul></div><h3><a id="_metrics_2"></a>Metrics<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/28_bucket_metric_list.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+Individual statistics: <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-min-aggregation.html" target="_top">Min</a>, <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-max-aggregation.html" target="_top">Max</a>, <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-avg-aggregation.html" target="_top">Avg</a>, <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-sum-aggregation.html" target="_top">Sum</a>
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-stats-aggregation.html" target="_top">Stats</a>: calculates min/mean/max/sum/count of documents in bucket
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html" target="_top">Extended Stats</a>: Same as stats, except it also includes variance, std deviation, sum of squares
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-valuecount-aggregation.html" target="_top">Value Count</a>: calculates the number of values, which may
+    be different from the number of documents (e.g. multi-valued fields)
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-cardinality-aggregation.html" target="_top">Cardinality</a>: calculates number of distinct/unique values (see <a class="xref" href="cardinality.html" title="Finding Distinct Counts">Finding Distinct Counts</a>)
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-percentile-aggregation.html" target="_top">Percentiles</a>: calculates percentiles/quantiles for
+    numeric values in a bucket (see <a class="xref" href="percentiles.html" title="Calculating Percentiles">Calculating Percentiles</a>)
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-significantterms-aggregation.html" target="_top">Significant Terms</a>: finds "uncommonly common" terms
+    (see <a class="xref" href="significant-terms.html" title="Significant Terms"><em>Significant Terms</em></a>)
+</li></ul></div></div><div class="navfooter"><span class="prev"><a href="_one_final_modification.html">
               « 
               One final modification</a>
            
         </span><span class="next">
            
-          <a href="_buckets_2.html">Buckets
+          <a href="_building_bar_charts.html">Building Bar Charts
                »
             </a></span></div></article></section></div></div></div><footer><div id="footer_container" class="full_wrapper"><div class="container"><nav role="navigation"><ul id="footer_nav" class="menu"><li id="menu-item-36" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-36"><a target="_blank" href="http://elasticsearch.com">Company</a></li><li id="menu-item-74980" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74980"><a href="/resources/">Resources</a></li><li id="menu-item-3106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3106"><a href="/terms-of-use/">Terms</a></li><li id="menu-item-3107" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3107"><a href="/privacy-and-cookie-policy/">Privacy</a></li><li id="menu-item-3105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3105"><a href="/contact/">Contact</a></li><li id="menu-item-39" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39"><a href="/blog/">Blog</a></li></ul></nav><div id="social"><a href="https://twitter.com/elasticsearch" class="social_icons" target="_blank"><i class="twitter"></i></a><a href="https://www.facebook.com/elasticsearch" class="social_icons" target="_blank"><i class="facebook"></i></a></div><div id="footer_form"><label class="form_label">Sign up for updates!</label><div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_4"><a id="gf_4" name="gf_4" class="gform_anchor"></a><form method="post" enctype="multipart/form-data" target="gform_ajax_frame_4" id="gform_4" action="/empty-template/#gf_4"><div class="gform_body"><ul id="gform_fields_4" class="gform_fields top_label description_below"><li id="field_4_6" class="gfield               gfield_contains_required"><label class="gfield_label" for="input_4_6">enter you email<span class="gfield_required">*</span></label><div class="ginput_container"><input name="input_6" id="input_4_6" type="email" value="" class="medium" tabindex="50" /></div></li><li id="field_4_2" class="gfield     gform_hidden"><input name="input_2" id="input_4_2" type="hidden" class="gform_hidden" value="813-MAM-392" /></li><li id="field_4_3" class="gfield     gform_hidden"><input name="input_3" id="input_4_3" type="hidden" class="gform_hidden" value="WEB.org" /></li><li id="field_4_4" class="gfield     gform_hidden"><input name="input_4" id="input_4_4" type="hidden" class="gform_hidden" value="WEB.org - Footer - Updates" /></li></ul></div><script type="text/javascript">//<![CDATA[
             jQuery(function(){

@@ -92,7 +92,7 @@ what would happen if you indexed these two documents into the same index:</p><p>
 </p><p>Lucene doesn’t care that one field contains a string and the other field
 contains a date — it will happily index the byte values from both fields.</p><p>However, if we now try to <span class="strong"><strong>sort</strong></span> on the <code class="literal">event.login</code> field then Elasticsearch
 needs to load the values in the <code class="literal">login</code> field into memory. As we said in
-<a class="xref" href="fielddata-intro.html" title="Field data">Field data</a>, it loads the values for  <span class="strong"><strong>all documents</strong></span> in the index
+<a class="xref" href="fielddata-intro.html" title="Fielddata">Fielddata</a>, it loads the values for  <span class="strong"><strong>all documents</strong></span> in the index
 regardless of their type.</p><p>It will either try to load these values as a string or as a date, depending on
 which <code class="literal">login</code> field it sees first. This will either produce unexpected results
 or fail outright.</p><div class="tip admon"><div class="icon"><img alt="Tip" src="images/icons/tip.png" /></div><div class="admon_content"><p>To ensure that you don’t run into these conflicts, it is advisable to

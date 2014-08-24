@@ -189,8 +189,8 @@ efficient.</p></div></div><p>The <a class="link" href="icu-plugin.html" title="I
 converts its string value into a binary sort key, using the specified
 collation.</p><p>The only purpose of this sort key is for sorting, not search, so the sort key
 is not added to the inverted index but is instead stored on disk in a data
-structure known as <span class="emphasis"><em>doc values</em></span>.</p><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong>Doc values</strong></p></div></div></div><p>Doc values, like <a class="xref" href="fielddata-intro.html" title="Field data">Field data</a> allows Elasticsearch to lookup the value of
-a field for a particular document. Unlike field data, doc values are stored on
+structure known as <span class="emphasis"><em>doc values</em></span>.</p><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong>Doc values</strong></p></div></div></div><p>Doc values, like <a class="xref" href="fielddata-intro.html" title="Fielddata">Fielddata</a> allows Elasticsearch to lookup the value of
+a field for a particular document. Unlike fielddata, doc values are stored on
 disk rather than being loaded into memory.  This greatly reduces the amount of
 RAM that is required, especially when dealing with string values. The new
 <code class="literal">icu_collation</code> field should be available in Elasticsearch v1.3.0.</p></div><p>Typically, the field that we want to sort on is also a field that we want to

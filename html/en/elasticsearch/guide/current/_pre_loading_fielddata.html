@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Pre-Loading Fielddata</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Elasticsearch" /><link rel="up" href="_controlling_memory_use_and_latency.html" title="Controlling memory use and latency" /><link rel="prev" href="doc-values.html" title="Doc Values" /><link rel="next" href="_preventing_combinatorial_explosions.html" title="Preventing Combinatorial Explosions" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link rel="shortcut icon" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/favicon.ico" /><link rel="stylesheet" id="prettify-gc-syntax-highlighter-css" href="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/prettify.css?ver=3.5.2" type="text/css" media="all" /><link rel="stylesheet" id="appStyles-css" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/css/main.css?ver=1395693666" type="text/css" media="all" /><script type="text/javascript" src="http://www.elasticsearch.org/wp-includes/js/jquery/jquery.js?ver=1.8.3"></script><link rel="stylesheet" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/style.css" type="text/css" media="all" /><script src="//cdn.optimizely.com/js/281975433.js"></script><script src="//fast.wistia.com/static/iframe-api-v1.js"></script><script type="text/javascript">
+      jQuery(function() {
+        jQuery('div.navheader+div').css('minHeight',jQuery('div.toc').height()+'px');
+        jQuery('article.guide_content a[id]').each(function() { this.href='#'+this.id });
+      });
+    </script><link rel="stylesheet" type="text/css" href="styles.css?3" /></head><body class="single single-guide"><img src="http://ad.retargeter.com/seg?add=1235131&amp;t=2" width="1" height="1" style="position:absolute; visibility:hidden;" /><script type="text/javascript">
+        if(jQuery('body').data('cookie') != "eu" || jQuery.cookie('allowCookies')){
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-12395217-2']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    }</script><!--[if lt IE 8]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+      <![endif]--><header><nav role="navigation" id="mobile-nav-container" class="off-canvas-nav"><ul id="mobile-nav" class="menu"><li id="menu-item-75892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75892"><a href="/overview/">Overview</a><ul class="sub-menu"><li id="menu-item-75895" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75895"><a href="/overview/">Overview</a></li><li id="menu-item-68760" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68760"><a href="/overview/elasticsearch/">Elasticsearch</a></li><li id="menu-item-75894" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75894"><a href="/overview/marvel/">Marvel</a></li><li id="menu-item-68758" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68758"><a href="/overview/kibana/">Kibana</a></li><li id="menu-item-68756" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68756"><a href="/overview/kibana/installation/">Kibana Installation</a></li><li id="menu-item-68757" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68757"><a href="/overview/kibana/support/">Kibana Support</a></li><li id="menu-item-68759" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68759"><a href="/overview/logstash/">Logstash</a></li><li id="menu-item-74019" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74019"><a href="/overview/hadoop/">Hadoop</a></li><li id="menu-item-75893" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75893"><a href="/overview/elkdownloads/">ELK Downloads</a></li></ul></li><li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="/resources/">Resources</a><ul class="sub-menu"><li id="menu-item-76342" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76342"><a href="/guide/">Guide</a></li><li id="menu-item-4843" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4843"><a href="/videos/">Videos</a></li></ul></li><li id="menu-item-657" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-657"><a href="/community/">Community</a></li><li id="menu-item-68802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68802"><a href="/case-studies/">Case Studies</a></li><li id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45"><a href="/blog/">Blog</a></li><li id="menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a target="_blank" href="http://elasticsearch.com">Company</a></li></ul><ul class="add-on"><li><a href="/overview/elkdownloads/">Download</a></li></ul></nav><div class="container"><div id="header-inner"><h1 id="header-logo"><a class="faux" href="http://www.elasticsearch.org">Elasticsearch</a></h1><nav role="navigation" id="main-nav-container" class="main-nav"><ul id="top-nav" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75892"><a href="/overview/">Overview</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-53 current_page_item menu-item-55"><a href="/resources/">Resources</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-657"><a href="/community/">Community</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68802"><a href="/case-studies/">Case Studies</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45"><a href="/blog/">Blog</a></li><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a target="_blank" href="http://elasticsearch.com">Company</a></li></ul><ul class="add-on"><li><a class="btn btn-primary" href="/overview/elkdownloads/">Download</a></li></ul></nav><div class="slide-trigger navigation" id="nav-trigger" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><hr /><ul id="sub_nav"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76342"><a href="/guide/">Guide</a></li><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4843"><a href="/videos/">Videos</a></li></ul></div></div></header><div class="global_wrapper"><div class="page_content"><div class="container"><section id="search_container" class="active"><form id="blog_search" role="search" action="/" method="get"><div class="blog_search_wrapper"><input id="s" name="s" class="search_term" type="text" placeholder="search" autocomplete="off" tabindex="1" /><input type="submit" class="search_submit" value=" " /><ul id="results"></ul></div></form></section><section class="full_width guide"><article class="guide_content"><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Elasticsearch</a></span> » <span class="breadcrumb-link"><a href="aggregations.html">Aggregations </a></span> » <span class="breadcrumb-link"><a href="_controlling_memory_use_and_latency.html">Controlling memory use and latency</a></span> » <span class="breadcrumb-node">Pre-Loading Fielddata</span></div><div class="navheader"><span class="prev"><a href="doc-values.html">
+              « 
+              Doc Values</a>
+           
+        </span><span class="next">
+           
+          <a href="_preventing_combinatorial_explosions.html">Preventing Combinatorial Explosions
+               »
+            </a></span></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a id="_pre_loading_fielddata"></a>Pre-Loading Fielddata<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/115_eager.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="_fielddata.html">Fielddata</a></span></dt><dt><span class="section"><a href="aggregations-and-analysis.html">Aggregations and Analysis</a></span></dt><dt><span class="section"><a href="_limiting_memory_usage.html">Limiting Memory Usage</a></span></dt><dt><span class="section"><a href="_fielddata_filtering.html">Fielddata Filtering</a></span></dt><dt><span class="section"><a href="doc-values.html">Doc Values</a></span></dt><dt><span class="section"><a href="_pre_loading_fielddata.html">Pre-Loading Fielddata</a></span></dt><dt><span class="section"><a href="_preventing_combinatorial_explosions.html">Preventing Combinatorial Explosions</a></span></dt></dl></div><p>The default behavior of Elasticsearch is to load in-memory fielddata <span class="emphasis"><em>lazily</em></span>.
+The first time Elasticsearch encounters a query which needs fielddata for a
+particular field, it will load that entire field into memory for each segment
+in the index.</p><p>For small segments, this requires a negligible amount of time.  But if you
+have a few 5GB segments and need to load 10GB of fielddata into memory, this
+process could take tens of seconds.  Users accustomed to sub-second response
+times would all of a sudden be hit by an apparently unresponsive website.</p><p>There are three methods to combat this latency spike.  All are variations on
+the same concept: pre-load the fielddata so that there is no latency spike.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_eagerly_loading_fielddata"></a>Eagerly Loading Fielddata<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/115_eager.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>The first tool is called <span class="emphasis"><em>eager loading</em></span> (as opposed to the default lazy
+loading). As new segments are created (by refreshing, flushing or merging),
+fields with eager loading enabled will have their per-segment fielddata
+pre-loaded <span class="strong"><strong>before</strong></span> the segment becomes visible to search.</p><p>This means that the first query to hit the segment will not need to trigger
+fielddata loading, as the in-memory cache has already been populated. This
+prevents your users from experiencing the “cold cache” latency spike.</p><p>Eager loading is enabled on a per field basis, so you can control which fields
+are pre-loaded:</p><pre class="programlisting prettyprint lang-js">PUT /music/_mapping/_song
+{
+  "price_usd": {
+    "type": "integer",
+    "fielddata": {
+      "loading" : "eager" <a id="CO212-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+    }
+  }
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO212-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+By setting <code class="literal">fielddata.loading: eager</code>, we tell Elasticsearch to pre-load
+this field’s contents into memory.
+</p></td></tr></table></div><p>Fielddata loading can be set to <code class="literal">lazy</code> or <code class="literal">eager</code> on existing fields, using
+the <code class="literal">update-mapping</code> API.</p><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>Eager loading simply shifts the cost of loading fielddata.  Instead of paying
+at query-time, you pay at refresh-time.</p><p>Large segments will take longer to refresh than small segments.  Usually,
+large segments are created by merging smaller segments which are already
+visible to search, so the slower refresh time is not important.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_global_ordinals"></a>Global Ordinals<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/115_eager.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>One of the techniques used to reduce the memory usage of (especially string)
+fielddata is called <span class="emphasis"><em>ordinals</em></span>:</p><p>Imagine that we have a billion documents, each of which has a <code class="literal">status</code> field.
+There are only three statuses: <code class="literal">status_pending</code>, <code class="literal">status_published</code>,
+<code class="literal">status_deleted</code>. If we were to hold the full string status in memory for
+every document, we would use 14 to 16 bytes per document, or about 15GB.</p><p>Instead, we can identify the three unique strings, sort them, and number them: 0, 1, 2.</p><pre class="literallayout">Ordinal | Term
+-------------------
+0       | status_deleted
+1       | status_pending
+2       | status_published</pre><p>The original strings are stored only once in the ordinals list, and each
+document just uses the numbered ordinal to point to the value that it
+contains.</p><pre class="literallayout">Doc     | Ordinal
+-------------------------
+0       | 1  # pending
+1       | 1  # pending
+2       | 2  # published
+3       | 0  # deleted</pre><p>This reduces memory usage from 15GB to less than 1GB!</p><p>But there is a problem. Remember that fielddata caches are <span class="strong"><strong>per-segment</strong></span>.  If
+one segment only contains two statuses — <code class="literal">status_deleted</code> and
+<code class="literal">status_published</code> — then the resulting ordinals (0 and 1) will not be the
+same as the ordinals for a segment which contains all three statuses.</p><p>If we try to run a <code class="literal">terms</code> aggregation on the <code class="literal">status</code> field, we need to
+aggregate on the actual string values, which means that we need to identify
+the same values across all segments.  A naive way of doing this would be to
+run the aggregation on each segment, return the string values from each
+segment, and then reduce them into an overall result.  While this would work,
+it would be slow and CPU intensive.</p><p>Instead, we use a structure called <span class="emphasis"><em>global ordinals</em></span>.  Global ordinals are a
+small in-memory data structure built on top of fielddata.  Unique values are
+identified <span class="strong"><strong>across all segments</strong></span> and stored in an ordinals list like the one
+we have already described.</p><p>Now, our <code class="literal">terms</code> aggregation can just aggregate on the global ordinals, and
+the conversion from ordinal to actual string value only happens once at the
+end of the aggregation. This increases performance of aggregations (and
+sorting) by a factor of three or four.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_building_global_ordinals"></a>Building global ordinals<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/115_eager.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>Of course, nothing in life is free.  Global ordinals cross all segments in an
+index, so if a new segment is added or an old segment is deleted, the global
+ordinals need to be rebuilt.  Rebuilding requires reading every unique term in
+every segment.  The higher the cardinality — the more unique terms that exist — the longer this process takes.</p><p>Global ordinals are built on top of in-memory fielddata and doc values.  In
+fact, they are one of the major reasons that doc values perform as well as
+they do.</p><p>Like fielddata loading, global ordinals are built lazily, by default.  The
+first request which requires fielddata to hit an index will trigger the
+building of global ordinals. Depending on the cardinality of the field, this
+can result in a significant latency spike for your users.  Once global
+ordinals have been rebuilt, they will be reused until the segments in the index
+change: after a refresh, a flush, or a merge.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_eager_global_ordinals"></a>Eager global ordinals<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/115_eager.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>Individual fields can be configured to pre-build global ordinals eagerly:</p><pre class="programlisting prettyprint lang-js">PUT /music/_mapping/_song
+{
+  "price_usd": {
+    "type": "integer",
+    "fielddata": {
+      "loading" : "eager_global_ordinals" <a id="CO213-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+    }
+  }
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO213-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+Setting <code class="literal">eager_global_ordinals</code> also implies loading fielddata eagerly.
+</p></td></tr></table></div><p>Just like the eager pre-loading of fielddata, eager global ordinals are built
+before a new segment becomes visible to search.  Doc values can also have
+their global ordinals built eagerly:</p><pre class="programlisting prettyprint lang-js">PUT /music/_mapping/_song
+{
+  "price_usd": {
+    "type": "integer",
+    "fielddata": {
+      "format":   "doc_values",
+      "loading" : "eager_global_ordinals" <a id="CO214-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+    }
+  }
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO214-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+In this case, fielddata is not loaded into memory but doc values are
+    loaded into the filesystem cache.
+</p></td></tr></table></div><p>Unlike fielddata pre-loading, eager building of global ordinals can have an
+impact on the “real-time” aspect of your data.  For very high cardinality
+fields, building global ordinals can delay a refresh by several seconds.  The
+choice is between paying the cost on each refresh, or on the first query after
+a refresh.  If you index often and query seldom, it is probably better to pay
+the price at query time instead of on every refresh.</p><div class="tip admon"><div class="icon"><img alt="Tip" src="images/icons/tip.png" /></div><div class="admon_content"><p>Make your global ordinals pay for themselves. If you have very high
+cardinality fields that take seconds to rebuild, increase the
+<code class="literal">refresh_interval</code> so that global ordinals remain valid for longer.  This will
+also reduce CPU usage as you will need to rebuild global ordinals less often.</p></div></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_index_warmers"></a>Index warmers<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/115_eager.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>Finally, we come to <span class="emphasis"><em>index warmers</em></span>.  Warmers pre-date eager fielddata loading
+and eager global ordinals, but they still serve a purpose. An index warmer
+allows you to specify a query and aggregations that should be run before a new
+segment is made visible to search. The idea is to prepopulate or “warm”
+caches so that your users never see a spike in latency.</p><p>Originally, the most important use for warmers was to make sure that fielddata
+was pre-loaded, as this is usually the most costly step.  This is now better
+controlled with the techniques we have discussed above.  However, warmers can
+be used to pre-build filter caches, and can still be used to preload fielddata
+should you so choose.</p><p>Let’s register a warmer, then talk about what’s happening:</p><pre class="programlisting prettyprint lang-js">PUT /music/_warmer/warmer_1 <a id="CO215-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+{
+  "query" : {
+    "filtered" : {
+      "filter" : {
+        "bool": {
+          "should": [ <a id="CO215-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>
+            { "term": { "tag": "rock"        }},
+            { "term": { "tag": "hiphop"      }},
+            { "term": { "tag": "electronics" }}
+          ]
+        }
+      }
+    }
+  },
+  "aggs" : {
+    "price" : {
+      "histogram" : {
+        "field" : "price", <a id="CO215-3"></a><span><img src="images/icons/callouts/3.png" alt="" /></span>
+        "interval" : 10
+      }
+    }
+  }
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO215-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+Warmers are associated with an index (<code class="literal">music</code>) and are registered using
+the <code class="literal">_warmer</code> endpoint and a unique ID (<code class="literal">warmer_1</code>).
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO215-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+The three most popular music genres have their filter caches pre-built.
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO215-3"><span><img src="images/icons/callouts/3.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+The fielddata and global ordinals for the <code class="literal">price</code> field will be preloaded.
+</p></td></tr></table></div><p>Warmers are registered against a specific index.  Each warmer is given a
+unique ID because you can have multiple warmers per index.</p><p>Then you just specify a query, any query.  It can include queries, filters,
+aggregations, sort values, scripts… literally any valid query DSL.  The
+point is to register queries that are representative of the traffic that your
+users will generate, so that appropriate caches can be pre-populated.</p><p>When a new segment is created, Elasticsearch will <span class="emphasis"><em>literally</em></span> execute the queries
+registered in your warmers.  The act of executing these queries will force
+caches to be loaded.  Only after all warmers have been executed will the segment
+be made visible to search.</p><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>Similar to eager loading, warmers shift the cost of cold caches to refresh-time.
+When registering warmers, it is important to be judicious.  You <span class="strong"><strong>could</strong></span> add
+thousands of warmers to make sure every cache is populated…but that will
+drastically slow down how long it takes for new segments to be made searchable.</p><p>In practice, select a handful of queries which represent the majority of your
+user’s queries and register those.</p></div></div><p>There are a number of administrative details (getting existing warmers,
+deleting warmers, etc) which have been omitted from this explanation.  Refer
+to the <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-warmers.html#warmer-adding" target="_top">warmers documentation</a> for the rest
+of the details.</p></div></div><div class="navfooter"><span class="prev"><a href="doc-values.html">
+              « 
+              Doc Values</a>
+           
+        </span><span class="next">
+           
+          <a href="_preventing_combinatorial_explosions.html">Preventing Combinatorial Explosions
+               »
+            </a></span></div></article></section></div></div></div><footer><div id="footer_container" class="full_wrapper"><div class="container"><nav role="navigation"><ul id="footer_nav" class="menu"><li id="menu-item-36" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-36"><a target="_blank" href="http://elasticsearch.com">Company</a></li><li id="menu-item-74980" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74980"><a href="/resources/">Resources</a></li><li id="menu-item-3106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3106"><a href="/terms-of-use/">Terms</a></li><li id="menu-item-3107" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3107"><a href="/privacy-and-cookie-policy/">Privacy</a></li><li id="menu-item-3105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3105"><a href="/contact/">Contact</a></li><li id="menu-item-39" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39"><a href="/blog/">Blog</a></li></ul></nav><div id="social"><a href="https://twitter.com/elasticsearch" class="social_icons" target="_blank"><i class="twitter"></i></a><a href="https://www.facebook.com/elasticsearch" class="social_icons" target="_blank"><i class="facebook"></i></a></div><div id="footer_form"><label class="form_label">Sign up for updates!</label><div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_4"><a id="gf_4" name="gf_4" class="gform_anchor"></a><form method="post" enctype="multipart/form-data" target="gform_ajax_frame_4" id="gform_4" action="/empty-template/#gf_4"><div class="gform_body"><ul id="gform_fields_4" class="gform_fields top_label description_below"><li id="field_4_6" class="gfield               gfield_contains_required"><label class="gfield_label" for="input_4_6">enter you email<span class="gfield_required">*</span></label><div class="ginput_container"><input name="input_6" id="input_4_6" type="email" value="" class="medium" tabindex="50" /></div></li><li id="field_4_2" class="gfield     gform_hidden"><input name="input_2" id="input_4_2" type="hidden" class="gform_hidden" value="813-MAM-392" /></li><li id="field_4_3" class="gfield     gform_hidden"><input name="input_3" id="input_4_3" type="hidden" class="gform_hidden" value="WEB.org" /></li><li id="field_4_4" class="gfield     gform_hidden"><input name="input_4" id="input_4_4" type="hidden" class="gform_hidden" value="WEB.org - Footer - Updates" /></li></ul></div><script type="text/javascript">//<![CDATA[
+            jQuery(function(){
+                jQuery('#gform_submit_button_4').click( function() {
+                    if(window["gf_submitting_4"]){
+                        return false;
+                    }
+                    if( !jQuery("#gform_4")[0].checkValidity || jQuery("#gform_4")[0].checkValidity()){
+                        window["gf_submitting_4"]=true;
+                    }
+                });
+            });
+            //]]></script><div class="gform_footer top_label"><input type="submit" id="gform_submit_button_4" class="button gform_button" value="Submit" tabindex="51" /><input type="hidden" name="gform_ajax" value="form_id=4&amp;title=&amp;description=" /><input type="hidden" class="gform_hidden" name="is_submit_4" value="1" /><input type="hidden" class="gform_hidden" name="gform_submit" value="4" /><input type="hidden" class="gform_hidden" name="gform_unique_id" value="" /><input type="hidden" class="gform_hidden" name="state_4" value="WyJhOjA6e30iLCJmMjE2MmM2ZjUxYmQ4M2Q3ZmMzNzVlNmY2ODYyZTI2NCJd" /><input type="hidden" class="gform_hidden" name="gform_target_page_number_4" id="gform_target_page_number_4" value="0" /><input type="hidden" class="gform_hidden" name="gform_source_page_number_4" id="gform_source_page_number_4" value="1" /><input type="hidden" name="gform_field_values" value="" /></div></form></div><iframe style="display:none;width:0px; height:0px;" src="about:blank" name="gform_ajax_frame_4" id="gform_ajax_frame_4"></iframe><script type="text/javascript">//<![CDATA[
+                    function gformInitSpinner_4(){jQuery('#gform_4').submit(function(){if(jQuery('#gform_ajax_spinner_4').length == 0){jQuery('#gform_submit_button_4, #gform_wrapper_4 .gform_next_button, #gform_wrapper_4 .gform_image_button').after('<' + 'img id="gform_ajax_spinner_4"  class="gform_ajax_spinner" src="http://www.elasticsearch.org/content/plugins/gravityforms/images/spinner.gif" alt="" />'); }} );}jQuery(document).ready(function($){gformInitSpinner_4();jQuery('#gform_ajax_frame_4').load( function(){var contents = jQuery(this).contents().find('*').html();var is_postback = contents.indexOf('GF_AJAX_POSTBACK') >= 0;if(!is_postback){return;}var form_content = jQuery(this).contents().find('#gform_wrapper_4');var is_redirect = contents.indexOf('gformRedirect(){') >= 0;var is_form = !(form_content.length <= 0 || is_redirect);if(is_form){jQuery('#gform_wrapper_4').html(form_content.html());jQuery(document).scrollTop(jQuery('#gform_wrapper_4').offset().top);if(window['gformInitDatepicker']) {gformInitDatepicker();}if(window['gformInitPriceFields']) {gformInitPriceFields();}var current_page = jQuery('#gform_source_page_number_4').val();gformInitSpinner_4();jQuery(document).trigger('gform_page_loaded', [4, current_page]);window['gf_submitting_4'] = false;}else if(!is_redirect){var confirmation_content = jQuery(this).contents().find('#gforms_confirmation_message').html();if(!confirmation_content){confirmation_content = contents;}setTimeout(function(){jQuery('#gform_wrapper_4').replaceWith('<' + 'div id=\'gforms_confirmation_message\' class=\'gform_confirmation_message_4\'' + '>' + confirmation_content + '<' + '/div' + '>');jQuery(document).scrollTop(jQuery('#gforms_confirmation_message').offset().top);jQuery(document).trigger('gform_confirmation_loaded', [4]);window['gf_submitting_4'] = false;}, 50);}else{jQuery('#gform_4').append(contents);if(window['gformRedirect']) {gformRedirect();}}jQuery(document).trigger('gform_post_render', [4, current_page]);} );} );</script><script type='text/javascript'> jQuery(document).ready(function(){jQuery(document).trigger('gform_post_render', [4, 1]) } );
+                    //]]></script></div><div class="legal"><p>© 2014 All Rights Reserved - Elasticsearch </p><p>Apache Lucene and Lucene are trademarks of the Apache Software Foundation</p></div></div></div></footer><section id="cookie"><div class="container"><div class="eu">
+                Elasticsearch uses cookies to provide a better user experience to visitors of our website. Read more about our cookie policy <a href="/privacy-and-cookie-policy/">here.</a><a data-action="accept" class="cta">Accept cookies</a></div><div class="uk">
+                Elasticsearch uses cookies to provide a better user experience to visitors of our website. Read more about our cookie policy <a href="/privacy-and-cookie-policy/">here.</a><a data-action="dismiss" class="cta dismiss">X</a></div></div></section><script type="text/javascript">
+      if (window.aiModifyParent) aiModifyParent();
+      (function ($, $a, $title, $list) {
+        $a = $('[id^="js-api-method-index"]');
+        if (!$a.size()) return;
+        $('.guide_content').addClass('js-client-docs');
+        $list = $a.siblings('.itemizedlist').detach();
+        $title = $(document.createElement('h2')).text('api methods')
+        $a.parent().remove();
+        $('.toc').first().append($(document.createElement('div')).addClass('js-api-method-index').append($title).append($list));
+      }(jQuery));
+    </script><script type="text/javascript">if(window.aiModifyParent) {aiModifyParent();}</script><script type="text/javascript" src="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/prettify.js?ver=3.5.2"></script><script type="text/javascript" src="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/launch.js?ver=3.5.2"></script><script type="text/javascript" src="http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201413"></script><script type="text/javascript" src="http://www.elasticsearch.org/content/themes/elasticsearch-org/js/global.min.js?ver=1395082598"></script><script type="text/javascript" src="http://www.elasticsearch.org/content/themes/elasticsearch-org/js/froogaloop.min.js?ver=1"></script><script type="text/javascript">
+if(jQuery('body').data('cookie') != "eu" || jQuery.cookie('allowCookies')){
+    document.write(unescape("%3Cscript src='" + document.location.protocol +
+    "//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+}
+</script><script>
+if(jQuery('body').data('cookie') != "eu" || jQuery.cookie('allowCookies')){
+    Munchkin.init('813-MAM-392');
+
+    // crazyegg
+    setTimeout(function(){var a=document.createElement("script");
+    var b=document.getElementsByTagName("script")[0];
+    a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0014/4686.js?"+Math.floor(new Date().getTime()/3600000);
+    a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+}
+</script></body></html>

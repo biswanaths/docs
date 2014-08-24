@@ -28,7 +28,7 @@
            
           <a href="has-parent.html">Finding children by their parents
                »
-            </a></span></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a id="has-child"></a>Finding parents by their children<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/404_Parent_Child/50_Has_child.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="parent-child-mapping.html">Parent-child mapping</a></span></dt><dt><span class="section"><a href="indexing-parent-child.html">Indexing parents and children</a></span></dt><dt><span class="section"><a href="has-child.html">Finding parents by their children</a></span></dt><dt><span class="section"><a href="has-parent.html">Finding children by their parents</a></span></dt><dt><span class="section"><a href="parent-child-aggs.html">Parent-child aggregations</a></span></dt><dt><span class="section"><a href="grandparents.html">Grandparents and grandchildren</a></span></dt><dt><span class="section"><a href="parent-child-performance.html">Practical considerations</a></span></dt></dl></div><p>The <code class="literal">has_child</code> query and filter can be used to find parent documents based on
+            </a></span></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a id="has-child"></a>Finding parents by their children<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/404_Parent_Child/50_Has_child.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="parent-child-mapping.html">Parent-child mapping</a></span></dt><dt><span class="section"><a href="indexing-parent-child.html">Indexing parents and children</a></span></dt><dt><span class="section"><a href="has-child.html">Finding parents by their children</a></span></dt><dt><span class="section"><a href="has-parent.html">Finding children by their parents</a></span></dt><dt><span class="section"><a href="children-agg.html">Children aggregation</a></span></dt><dt><span class="section"><a href="grandparents.html">Grandparents and grandchildren</a></span></dt><dt><span class="section"><a href="parent-child-performance.html">Practical considerations</a></span></dt></dl></div><p>The <code class="literal">has_child</code> query and filter can be used to find parent documents based on
 the contents of their children.  For instance, we could find all branches that
 have employees born after 1980 with a query like this:</p><pre class="programlisting prettyprint lang-json">GET /company/branch/_search
 {
@@ -74,13 +74,13 @@ number of matching children is within the specified range.</p><p>This query will
   "query": {
     "has_child": {
       "type":         "employee",
-      "min_children": 2, <a id="CO271-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+      "min_children": 2, <a id="CO274-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
       "query": {
         "match_all": {}
       }
     }
   }
-}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO271-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO274-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 A branch must have at least two employees in order to match.
 </p></td></tr></table></div><p>The performance of a <code class="literal">has_child</code> query or filter with the <code class="literal">min_children</code> or
 <code class="literal">max_children</code> parameters is much the same as a <code class="literal">has_child</code> query with scoring
