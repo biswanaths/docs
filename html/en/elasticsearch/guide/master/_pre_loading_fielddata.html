@@ -110,9 +110,9 @@ before a new segment becomes visible to search.  Doc values can also have
 their global ordinals built eagerly:</p><pre class="programlisting prettyprint lang-js">PUT /music/_mapping/_song
 {
   "price_usd": {
-    "type": "integer",
+    "type":       "integer",
+    "doc_values": true,
     "fielddata": {
-      "format":   "doc_values",
       "loading" : "eager_global_ordinals" <a id="CO218-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
     }
   }
