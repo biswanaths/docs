@@ -31,6 +31,7 @@ sub new {
 
     my $chunk     = $args{chunk}     || 0;
     my $toc_level = $args{toc_level} || 1;
+    my $toc       = $args{toc}       || 0;
 
     my $branches = $args{branches} || $repo->branches;
     my $current  = $args{current}  || $repo->current;
@@ -47,6 +48,7 @@ sub new {
         repo      => $repo,
         prefix    => $prefix,
         chunk     => $chunk,
+        toc       => $toc,
         toc_level => $toc_level,
         single    => $args{single},
         index     => Path::Class::file($index),
@@ -71,6 +73,7 @@ sub build {
     my $dir       = $self->dir;
     my $chunk     = $self->chunk;
     my $toc_level = $self->toc_level;
+    my $add_toc   = $self->toc;
 
     $dir->mkpath;
 
@@ -96,7 +99,8 @@ sub build {
                     $branch_dir,
                     version  => $branch,
                     multi    => $multi,
-                    edit_url => $edit_url
+                    edit_url => $edit_url,
+                    toc      => $add_toc,
                 );
             }
             else {
@@ -172,6 +176,7 @@ sub dir       { shift->{dir} }
 sub repo      { shift->{repo} }
 sub prefix    { shift->{prefix} }
 sub chunk     { shift->{chunk} }
+sub toc       { shift->{toc} }
 sub toc_level { shift->{toc_level} }
 sub single    { shift->{single} }
 sub index     { shift->{index} }
