@@ -74,8 +74,9 @@ Merges each shard in the index down to a single segment.
 </p></td></tr></table></div><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>Be aware that merges triggered by the <code class="literal">optimize</code> API are not
 throttled at all. They can consume all of the I/O on your nodes, leaving
 nothing for search and potentially making your cluster unresponsive. If you
-plan on optimizing an index, you should use shard allocation (see <a class="xref" href="TODO.html" title="Appendix A. TODO">Appendix A, <em>TODO</em></a>) to
-first move the index to a node where it is safe to run.</p></div></div></div></div><div class="navfooter"><span class="prev"><a href="translog.html">
+plan on optimizing an index, you should use shard allocation (see
+<a class="xref" href="retiring-data.html#migrate-indices" title="Migrate old indices">Migrate old indices</a>) to first move the index to a node where it is safe to
+run.</p></div></div></div></div><div class="navfooter"><span class="prev"><a href="translog.html">
               « 
               Making changes persistent</a>
            

@@ -239,17 +239,7 @@ The <code class="literal">_id</code> has been extracted correctly.
 performance impact on <code class="literal">bulk</code> requests (see <a class="xref" href="distrib-multi-doc.html#bulk-format" title="Why the funny format?">Why the funny format?</a>). The node handling
 the request can no longer make use of the optimized bulk format to parse just
 the metadata line in order to decide which shard should receive the request.
-Instead, it has to parse the document body as well.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_metadata_other"></a>Metadata: Other<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/070_Index_Mgmt/34_Metadata_Other.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>The other metadata fields will be discussed where appropriate:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-<code class="literal">_analyzer</code>
-</li><li class="listitem">
-<code class="literal">_parent</code>
-</li><li class="listitem">
-<code class="literal">_routing</code>
-</li><li class="listitem">
-<code class="literal">_size</code>
-</li><li class="listitem">
-<code class="literal">_timestamp</code> and <code class="literal">_ttl</code>
-</li></ul></div><p>TODO: add links to the sections where they are discussed</p></div></div><div class="navfooter"><span class="prev"><a href="mapping.html">
+Instead, it has to parse the document body as well.</p></div></div></div></div><div class="navfooter"><span class="prev"><a href="mapping.html">
               « 
               Types and Mappings</a>
            
