@@ -64,10 +64,10 @@ of the <code class="literal">index</code> request:</p><pre class="programlisting
    "_source": {
       "title":  "My first blog entry",
       "text":   "Starting to get the hang of this...",
-      "tags": [ "testing" ], <a id="CO10-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
-      "views":  0 <a id="CO10-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>
+      "tags": [ "testing" ], <a id="CO11-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+      "views":  0 <a id="CO11-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>
    }
-}</pre><a class="sense_widget" href="sense_widget.html?snippets/030_Data/45_Partial_update.json" target="sense">View in Sense</a><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO10-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> <a href="#CO10-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+}</pre><a class="sense_widget" href="sense_widget.html?snippets/030_Data/45_Partial_update.json" target="sense">View in Sense</a><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO11-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> <a href="#CO11-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 Our new fields have been added to the <code class="literal">_source</code>.
 </p></td></tr></table></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_using_scripts_to_make_partial_updates"></a>Using scripts to make partial updates<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/030_Data/45_Partial_update.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong>Scripting with Groovy</strong></p></div></div></div><p>For those moments when the API just isn’t enough, Elasticsearch allows you to
 write your own custom logic in a script. Scripting is supported in many APIs
@@ -102,12 +102,12 @@ another tag:</p><pre class="programlisting prettyprint lang-js">POST /website/bl
    "_source": {
       "title":  "My first blog entry",
       "text":   "Starting to get the hang of this...",
-      "tags":  ["testing", "search"], <a id="CO11-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
-      "views":  1 <a id="CO11-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>
+      "tags":  ["testing", "search"], <a id="CO12-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+      "views":  1 <a id="CO12-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>
    }
-}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO11-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO12-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 The <code class="literal">search</code> tag has been appended to the <code class="literal">tags</code> array.
-</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO11-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO12-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 The <code class="literal">views</code> field has been incremented.
 </p></td></tr></table></div><p>We can even choose to delete a document based on it contents,
 by setting <code class="literal">ctx.op</code> to <code class="literal">delete</code>:</p><pre class="programlisting prettyprint lang-js">POST /website/blog/1/_update
@@ -142,13 +142,13 @@ changed.  For instance, if two processes are both incrementing the page
 view counter, it doesn’t matter in which order it happens — if a conflict
 occurs, the only thing we need to do is to reattempt the update.</p><p>This can be done automatically by setting the <code class="literal">retry_on_conflict</code> parameter to
 the number of times that <code class="literal">update</code> should retry before failing — it defaults
-to <code class="literal">0</code>.</p><pre class="programlisting prettyprint lang-js">POST /website/pageviews/1/_update?retry_on_conflict=5 <a id="CO12-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+to <code class="literal">0</code>.</p><pre class="programlisting prettyprint lang-js">POST /website/pageviews/1/_update?retry_on_conflict=5 <a id="CO13-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
 {
    "script" : "ctx._source.views+=1",
    "upsert": {
        "views": 0
    }
-}</pre><a class="sense_widget" href="sense_widget.html?snippets/030_Data/45_Upsert.json" target="sense">View in Sense</a><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO12-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+}</pre><a class="sense_widget" href="sense_widget.html?snippets/030_Data/45_Upsert.json" target="sense">View in Sense</a><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO13-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 Retry this update 5 times before failing.
 </p></td></tr></table></div><p>This works well for operations like incrementing a counter where the order of
 increments does not matter, but there are other situations where the order of

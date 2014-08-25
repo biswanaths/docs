@@ -54,24 +54,24 @@ seen above, you can even talk to Elasticsearch from the command line using the
 Javascript, .NET, PHP, Perl, Python, and Ruby —  and there are numerous
 community-provided clients and integrations, all of which can be found in the
 <a class="ulink" href="http://www.elasticsearch.org/guide/" target="_top">Guide</a>.</p></div><p>A request to Elasticsearch consists of the same parts as any HTTP request. For
-instance, to count the number of documents in the cluster, we could use:</p><pre class="programlisting prettyprint lang-js">      <a id="CO1-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>     <a id="CO1-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>                     <a id="CO1-3"></a><span><img src="images/icons/callouts/3.png" alt="" /></span>    <a id="CO1-4"></a><span><img src="images/icons/callouts/4.png" alt="" /></span>
+instance, to count the number of documents in the cluster, we could use:</p><pre class="programlisting prettyprint lang-js">      <a id="CO2-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>     <a id="CO2-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>                     <a id="CO2-3"></a><span><img src="images/icons/callouts/3.png" alt="" /></span>    <a id="CO2-4"></a><span><img src="images/icons/callouts/4.png" alt="" /></span>
 curl -XGET 'http://localhost:9200/_count?pretty' -d '
-{  <a id="CO1-5"></a><span><img src="images/icons/callouts/5.png" alt="" /></span>
+{  <a id="CO2-5"></a><span><img src="images/icons/callouts/5.png" alt="" /></span>
     "query": {
         "match_all": {}
     }
 }
-'</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO1-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+'</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO2-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 The appropriate HTTP <span class="emphasis"><em>method</em></span> or <span class="emphasis"><em>verb</em></span>: <code class="literal">GET</code>, <code class="literal">POST</code>, <code class="literal">PUT</code>, <code class="literal">HEAD</code> or
     <code class="literal">DELETE</code>
-</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO1-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO2-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 The protocol, hostname and port of any node in the cluster.
-</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO1-3"><span><img src="images/icons/callouts/3.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO2-3"><span><img src="images/icons/callouts/3.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 The path of the request.
-</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO1-4"><span><img src="images/icons/callouts/4.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO2-4"><span><img src="images/icons/callouts/4.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 Any optional query string parameters, eg <code class="literal">?pretty</code> will <span class="emphasis"><em>pretty-print</em></span>
     the JSON response to make it easier to read.
-</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO1-5"><span><img src="images/icons/callouts/5.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO2-5"><span><img src="images/icons/callouts/5.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 A JSON encoded request body (if the request needs one).
 </p></td></tr></table></div><p>Elasticsearch returns an HTTP status code like <code class="literal">200 OK</code> and (except for <code class="literal">HEAD</code>
 requests) a JSON encoded response body. The above <code class="literal">curl</code> request would respond

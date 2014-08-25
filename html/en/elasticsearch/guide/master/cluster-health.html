@@ -32,7 +32,7 @@
 but the single most important one is the <span class="emphasis"><em>cluster health</em></span>, which reports a
 <code class="literal">status</code> of either <code class="literal">green</code>, <code class="literal">yellow</code> or <code class="literal">red</code>:</p><pre class="programlisting prettyprint lang-js">GET /_cluster/health</pre><a class="sense_widget" href="sense_widget.html?snippets/020_Distributed_Cluster/10_Cluster_health.json" target="sense">View in Sense</a><p>which, on an empty cluster with no indices, will return something like:</p><pre class="programlisting prettyprint lang-js">{
    "cluster_name":          "elasticsearch",
-   "status":                "green", <a id="CO5-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+   "status":                "green", <a id="CO6-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
    "timed_out":             false,
    "number_of_nodes":       1,
    "number_of_data_nodes":  1,
@@ -41,7 +41,7 @@ but the single most important one is the <span class="emphasis"><em>cluster heal
    "relocating_shards":     0,
    "initializing_shards":   0,
    "unassigned_shards":     0
-}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO5-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO6-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 The <code class="literal">status</code> field is the one we’re most interested in.
 </p></td></tr></table></div><p>The <code class="literal">status</code> field provides an overall indication of how the cluster is
 functioning. The meaning of the three colors are provided here for reference:</p><div class="horizontal"><table cellpadding="4px" border="0"><colgroup><col /><col /></colgroup><tbody valign="top"><tr><td valign="top">
