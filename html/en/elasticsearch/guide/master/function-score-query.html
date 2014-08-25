@@ -34,10 +34,10 @@ apply a function to each document which matches the main query in order to
 alter or completely replace the original query <code class="literal">_score</code>.</p><p>In fact, you can apply different functions to <span class="strong"><strong>subsets</strong></span> of the main result set
 using filters, which gives you the best of both worlds: efficient scoring with
 cacheable filters.</p><p>It supports a number of predefined functions out of the box:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
-<code class="literal">boost_factor</code>
+<code class="literal">weight</code>
 </span></dt><dd>
-    Apply a simple <code class="literal">boost</code> to each document without the boost being
-    normalized: a <code class="literal">boost_factor</code> of <code class="literal">2</code> results in <code class="literal">2 * _score</code>.
+    Apply a simple boost to each document without the boost being
+    normalized: a <code class="literal">weight</code> of <code class="literal">2</code> results in <code class="literal">2 * _score</code>.
 </dd><dt><span class="term">
 <code class="literal">field_value_factor</code>
 </span></dt><dd>

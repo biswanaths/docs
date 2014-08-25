@@ -42,15 +42,12 @@ exact parameters.</p><h3><a id="_buckets_2"></a>Buckets<a href="https://github.c
 <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-missing-aggregation.html" target="_top">Missing</a>: all documents which <span class="emphasis"><em>do not</em></span> have
     a particular field
 </li><li class="listitem">
-<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-nested-aggregation.html" target="_top">Nested</a>: a special bucket for working with
-    nested documents
-</li><li class="listitem">
 <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html" target="_top">Terms</a>: generates a new bucket for each unique term
 </li><li class="listitem">
 <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-range-aggregation.html" target="_top">Range</a>: creates arbitrary ranges which documents
     fall into
 </li><li class="listitem">
-<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-daterange-aggregation.html" target="_top">Date Range</a>: similar to Range, but is calendar
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-daterange-aggregation.html" target="_top">Date Range</a>: similar to Range, but calendar
     aware
 </li><li class="listitem">
 <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-iprange-aggregation.html" target="_top">IPV4 Range</a>: similar to Range, but can handle "IP logic" like CIDR masks, etc
@@ -63,8 +60,13 @@ exact parameters.</p><h3><a id="_buckets_2"></a>Buckets<a href="https://github.c
 <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html" target="_top">Date Histogram</a>: similar to Histogram, but
     calendar aware
 </li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-nested-aggregation.html" target="_top">Nested</a>: a special bucket for working with
+    nested documents (see <a class="xref" href="nested-aggregation.html" title="Nested aggregations">Nested aggregations</a>)
+</li><li class="listitem">
 <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-bucket-geohashgrid-aggregation.html" target="_top">Geohash Grid</a>: partitions documents according to
-    what geohash grid they fall into
+    what geohash grid they fall into (see <a class="xref" href="geohash-grid-agg.html" title="geohash_grid aggregation"><code class="literal">geohash_grid</code> aggregation</a>)
+</li><li class="listitem">
+<a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-top-hits-aggregation.html" target="_top">TopHits</a>: Return the top search results grouped by the value of a field (see <a class="xref" href="top-hits.html" title="Field collapsing">Field collapsing</a>)
 </li></ul></div><h3><a id="_metrics_2"></a>Metrics<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/28_bucket_metric_list.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
 Individual statistics: <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-min-aggregation.html" target="_top">Min</a>, <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-max-aggregation.html" target="_top">Max</a>, <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-avg-aggregation.html" target="_top">Avg</a>, <a class="ulink" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-sum-aggregation.html" target="_top">Sum</a>
 </li><li class="listitem">

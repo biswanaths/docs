@@ -96,7 +96,8 @@ The <code class="literal">gauss</code> (Gaussian) function is bell-shaped —�
 </li></ul></div><p>Which curve you choose depends entirely on how quickly you want the <code class="literal">_score</code>
 to decay, the further a value is from the <code class="literal">origin</code>.</p><p>To return to our example: our user would prefer to rent a holiday home close
 to the centre of London (<code class="literal">{ "lat": 51.50, "lon": 0.12}</code>) and to pay no more
-than £100 a night.  We could write this query as:</p><pre class="programlisting prettyprint lang-json">GET /_search
+than £100 a night, but our user considers price to be more important than
+distance.   We could write this query as:</p><pre class="programlisting prettyprint lang-json">GET /_search
 {
   "query": {
     "function_score": {
@@ -117,7 +118,8 @@ than £100 a night.  We could write this query as:</p><pre class="programlisting
               "offset": "50",
               "scale":  "20"
             }
-          }
+          },
+          "weight": 2 <a id="CO119-4"></a><span><img src="images/icons/callouts/4.png" alt="" /></span>
         }
       ]
     }
@@ -128,6 +130,8 @@ The <code class="literal">location</code> field is mapped as a <code class="lite
 The <code class="literal">price</code> field is numeric.
 </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO119-3"><span><img src="images/icons/callouts/3.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 See below for the reason why <code class="literal">origin</code> is <code class="literal">50</code> instead of <code class="literal">100</code>.
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO119-4"><span><img src="images/icons/callouts/4.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+The <code class="literal">price</code> clause has twice the “weight” of the <code class="literal">location</code> clause.
 </p></td></tr></table></div><p>The <code class="literal">location</code> clause is easy to understand:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
 We have specified an <code class="literal">origin</code> which corresponds to the centre of London.
 </li><li class="listitem">
@@ -140,7 +144,10 @@ anything up to £100, but this example sets the origin to £50.  Prices can’t 
 negative, but the lower they are the better.  Really, any price between £0 and
 £100 should be considered optimal.</p><p>If we were to set the <code class="literal">origin</code> to £100, then prices below £100 would receive a
 lower score. Instead, we set both the <code class="literal">origin</code> and the <code class="literal">offset</code> to £50.  That
-way, the score only decays for any prices above £100 (<code class="literal">origin + offset</code>).</p></div><div class="navfooter"><span class="prev"><a href="random-scoring.html">
+way, the score only decays for any prices above £100 (<code class="literal">origin + offset</code>).</p><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong>Tuning <code class="literal">function_score</code> clauses</strong></p></div></div></div><p>The <code class="literal">weight</code> parameter can be used to increase or decrease the contribution of
+individual clauses.  The <code class="literal">weight</code>, which defaults to <code class="literal">1.0</code>, is multiplied with
+the score from each clause before the scores are combined with the specified
+<code class="literal">score_mode</code>.</p></div></div><div class="navfooter"><span class="prev"><a href="random-scoring.html">
               « 
               Random scoring</a>
            
