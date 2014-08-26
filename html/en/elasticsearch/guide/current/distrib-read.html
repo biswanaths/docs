@@ -40,10 +40,12 @@ The node uses the document’s <code class="literal">_id</code> to determine tha
    to the client.
 </li></ol></div><p>For read requests, the requesting node will choose a different shard copy on
 every request in order to balance the load — it round-robins through all
-shard copies.</p><p>It is possible that a document has been indexed on the primary shard but
-has not yet been copied to the replica shards. In this case a replica
-might report that the document doesn’t exist, while the primary would have
-returned the document successfully.</p></div><div class="navfooter"><span class="prev"><a href="distrib-write.html">
+shard copies.</p><p>It is possible that, while a document is being indexed, the document will
+already be present on the primary shard but not yet copied to the replica
+shards. In this case a replica might report that the document doesn’t exist,
+while the primary would have returned the document successfully. Once the
+indexing request has returned success to the user, the document will be
+available on the primary and all replica shards.</p></div><div class="navfooter"><span class="prev"><a href="distrib-write.html">
               « 
               Creating, indexing and deleting a document</a>
            
