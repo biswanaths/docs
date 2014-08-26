@@ -33,7 +33,7 @@ successfully completed on the primary shard before they can be copied to any
 associated replica shards.</p><div class="figure"><a id="img-distrib-write"></a><p class="title"><strong>Figure 9. Creating, indexing or deleting a single document</strong></p><div class="figure-contents"><div class="mediaobject"><img src="images/04-02_write.png" alt="Creating, indexing or deleting a single document" /></div></div></div><br class="figure-break" /><p>Below we list the sequence of steps necessary to successfully create, index or
 delete a document on both the primary and any replica shards, as depicted in
 <a class="xref" href="distrib-write.html#img-distrib-write" title="Figure 9. Creating, indexing or deleting a single document">Figure 9, “Creating, indexing or deleting a single document”</a>:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-The client sends a create, index or delete request to <code class="literal">Node_1</code>.
+The client sends a create, index or delete request to <code class="literal">Node 1</code>.
 </li><li class="listitem">
 The node uses the document’s <code class="literal">_id</code> to determine that the document
    belongs to shard <code class="literal">0</code>. It forwards the request to <code class="literal">Node 3</code>,
