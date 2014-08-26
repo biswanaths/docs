@@ -51,7 +51,7 @@ from Lucene and is deprecated in Elasticsearch as of v1.0.0.RC1. The
 implementation in Lucene resulted in unpredictable result when
 used with multiple fields or multi-value fields.</p><p>Instead, the <a class="xref" href="query-dsl-function-score-query.html" title="Function Score Query">Function Score Query</a> can be used to achieve
 the desired functionality by boosting each document by the value in
-any field the document:</p><pre class="programlisting prettyprint lang-js">{
+any field of the document:</p><pre class="programlisting prettyprint lang-js">{
     "query": {
         "function_score": {
             "query": {  <a id="CO53-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
