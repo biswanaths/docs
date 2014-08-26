@@ -70,9 +70,9 @@ were to use the same technique with the <code class="literal">employee</code> gr
   "dob":   "1970-10-24",
   "hobby": "hiking"
 }</pre><p>The shard routing of the employee document would be decided by the parent ID — <code class="literal">london</code> — but the <code class="literal">london</code> document was routed to a shard by <span class="strong"><strong>its own</strong></span>
-parent ID — <code class="literal">uk</code>.  It is very unlikely that the grandchild would end up on
-the same shard as its parent and grandparent, which would prevent the
-in-memory mapping from functioning.</p><p>Instead, we need to add an extra <code class="literal">routing</code> parameter, set to the ID of the
+parent ID — <code class="literal">uk</code>.  It is very likely that the grandchild would end up on
+a different shard from its parent and grandparent, which would prevent the
+same-shard parent-child mapping from functioning.</p><p>Instead, we need to add an extra <code class="literal">routing</code> parameter, set to the ID of the
 grandparent, to ensure that all three generations are indexed on the same
 shard.  The indexing request should look like this:</p><pre class="programlisting prettyprint lang-json">PUT /company/employee/1?parent=london&amp;routing=uk <a id="CO283-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
 {
