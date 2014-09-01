@@ -36,8 +36,7 @@ function is computationally expensive and it is sufficient to compute
 the score on a filtered set of documents.</p><p><code class="literal">function_score</code> provides the same functionality that
 <code class="literal">custom_boost_factor</code>, <code class="literal">custom_score</code> and
 <code class="literal">custom_filters_score</code> provided
-but furthermore adds futher scoring functionality such as
-distance and recency scoring (see description below).</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_using_function_score"></a>Using function score<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/query-dsl/queries/function-score-query.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>To use <code class="literal">function_score</code>, the user has to define a query and one or
+but with additional capabilities such as distance and recency scoring (see description below).</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_using_function_score"></a>Using function score<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/query-dsl/queries/function-score-query.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>To use <code class="literal">function_score</code>, the user has to define a query and one or
 several functions, that compute a new score for each document returned
 by the query.</p><p><code class="literal">function_score</code> can be used with only one function like this:</p><pre class="programlisting prettyprint lang-js">"function_score": {
     "(query|filter)": {},
@@ -52,10 +51,15 @@ given filter:</p><pre class="programlisting prettyprint lang-js">"function_score
     "functions": [
         {
             "filter": {},
-            "FUNCTION": {}
+            "FUNCTION": {},
+            "weight": number
         },
         {
             "FUNCTION": {}
+        },
+        {
+            "filter": {},
+            "weight": number
         }
     ],
     "max_boost": number,
@@ -112,7 +116,10 @@ maximum score is used
 <p>
 minimum score is used
 </p>
-</td></tr></tbody></table></div><p>The new score can be restricted to not exceed a certain limit by setting
+</td></tr></tbody></table></div><p>Because scores can be on different scales (for example, between 0 and 1 for decay functions but arbitrary for <code class="literal">field_value_factor</code>) and also because sometimes a different impact of functions on the score is desirable, the score of each function can be adjusted with a user defined <code class="literal">weight</code> (<span class="coming">
+      [<span class="version">coming in 1.4.0</span>]
+      <span class="detail">Coming in 1.4.0.</span></span>). The <code class="literal">weight</code> can be defined per function in the <code class="literal">functions</code> array (example above) and is multiplied with the score computed by the respective function.
+If weight is given without any other function declaration, <code class="literal">weight</code> acts as a function that simply returns the <code class="literal">weight</code>.</p><p>The new score can be restricted to not exceed a certain limit by setting
 the <code class="literal">max_boost</code> parameter. The default for <code class="literal">max_boost</code> is FLT_MAX.</p><p>Finally, the newly computed score is combined with the score of the
 query. The parameter <code class="literal">boost_mode</code> defines how:</p><div class="horizontal"><table cellpadding="4px" border="0"><colgroup><col /><col /></colgroup><tbody valign="top"><tr><td valign="top">
 <p>
@@ -180,10 +187,10 @@ script, and provide parameters to it:</p><pre class="programlisting prettyprint 
     "script": "_score * doc['my_numeric_field'].value / pow(param1, param2)"
 }</pre><p>Note that unlike the <code class="literal">custom_score</code> query, the
 score of the query is multiplied with the result of the script scoring. If
-you wish to inhibit this, set <code class="literal">"boost_mode": "replace"</code></p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_boost_factor"></a>Boost factor<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/query-dsl/queries/function-score-query.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>The <code class="literal">boost_factor</code> score allows you to multiply the score by the provided
-<code class="literal">boost_factor</code>. This can sometimes be desired since boost value set on
+you wish to inhibit this, set <code class="literal">"boost_mode": "replace"</code></p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_weight"></a>Weight<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/query-dsl/queries/function-score-query.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>Coming in 1.4.0.</p></div></div><p>The <code class="literal">weight</code> score allows you to multiply the score by the provided
+<code class="literal">weight</code>. This can sometimes be desired since boost value set on
 specific queries gets normalized, while for this score function it does
-not.</p><pre class="programlisting prettyprint lang-js">"boost_factor" : number</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_random"></a>Random<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/query-dsl/queries/function-score-query.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>The <code class="literal">random_score</code> generates scores using a hash of the <code class="literal">_uid</code> field,
+not.</p><pre class="programlisting prettyprint lang-js">"weight" : number</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_boost_factor"></a>Boost factor<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/query-dsl/queries/function-score-query.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>Deprecated in 1.4.0.</p></div></div><p>Same as <code class="literal">weight</code>. Use <code class="literal">weight</code> instead.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_random"></a>Random<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/query-dsl/queries/function-score-query.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>The <code class="literal">random_score</code> generates scores using a hash of the <code class="literal">_uid</code> field,
 with a <code class="literal">seed</code> for variation. If <code class="literal">seed</code> is not specified, the current
 time is used.</p><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>Using this feature will load field data for <code class="literal">_uid</code>, which can
 be a memory intensive operation since the values are unique.</p></div></div><pre class="programlisting prettyprint lang-js">"random_score": {
@@ -390,7 +397,7 @@ return 1.</p></div><div class="section"><div class="titlepage"><div><div><h3 cla
     "boost_factor": 5.2,
     "query": {...}
 }</pre><p>becomes</p><pre class="programlisting prettyprint lang-js">"function_score": {
-    "boost_factor": 5.2,
+    "weight": 5.2,
     "query": {...}
 }</pre><p>The <code class="literal">custom_score</code> query</p><pre class="programlisting prettyprint lang-js">"custom_score": {
     "params": {
@@ -429,7 +436,7 @@ return 1.</p></div><div class="section"><div class="titlepage"><div><div><h3 cla
 }</pre><p>becomes:</p><pre class="programlisting prettyprint lang-js">"function_score": {
     "functions": [
         {
-            "boost_factor": "3",
+            "weight": "3",
             "filter": {...}
         },
         {
