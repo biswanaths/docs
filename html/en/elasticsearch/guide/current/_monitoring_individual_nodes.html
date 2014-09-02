@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Monitoring individual nodes</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Elasticsearch" /><link rel="up" href="cluster-admin.html" title="Monitoring" /><link rel="prev" href="_cluster_health.html" title="Cluster Health" /><link rel="next" href="_cluster_stats.html" title="Cluster Stats" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link rel="shortcut icon" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/favicon.ico" /><link rel="stylesheet" id="prettify-gc-syntax-highlighter-css" href="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/prettify.css?ver=3.5.2" type="text/css" media="all" /><link rel="stylesheet" id="appStyles-css" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/css/main.css?ver=1395693666" type="text/css" media="all" /><script type="text/javascript" src="http://www.elasticsearch.org/wp-includes/js/jquery/jquery.js?ver=1.8.3"></script><link rel="stylesheet" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/style.css" type="text/css" media="all" /><script src="//cdn.optimizely.com/js/281975433.js"></script><script src="//fast.wistia.com/static/iframe-api-v1.js"></script><script type="text/javascript">
+      jQuery(function() {
+        jQuery('div.navheader+div').css('minHeight',jQuery('div.toc').height()+'px');
+        jQuery('article.guide_content a[id]').each(function() { this.href='#'+this.id });
+      });
+    </script><link rel="stylesheet" type="text/css" href="styles.css?3" /></head><body class="single single-guide"><img src="http://ad.retargeter.com/seg?add=1235131&amp;t=2" width="1" height="1" style="position:absolute; visibility:hidden;" /><script type="text/javascript">
+        if(jQuery('body').data('cookie') != "eu" || jQuery.cookie('allowCookies')){
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-12395217-2']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    }</script><!--[if lt IE 8]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+      <![endif]--><header><nav role="navigation" id="mobile-nav-container" class="off-canvas-nav"><ul id="mobile-nav" class="menu"><li id="menu-item-75892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75892"><a href="/overview/">Overview</a><ul class="sub-menu"><li id="menu-item-75895" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75895"><a href="/overview/">Overview</a></li><li id="menu-item-68760" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68760"><a href="/overview/elasticsearch/">Elasticsearch</a></li><li id="menu-item-75894" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75894"><a href="/overview/marvel/">Marvel</a></li><li id="menu-item-68758" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68758"><a href="/overview/kibana/">Kibana</a></li><li id="menu-item-68756" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68756"><a href="/overview/kibana/installation/">Kibana Installation</a></li><li id="menu-item-68757" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68757"><a href="/overview/kibana/support/">Kibana Support</a></li><li id="menu-item-68759" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68759"><a href="/overview/logstash/">Logstash</a></li><li id="menu-item-74019" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74019"><a href="/overview/hadoop/">Hadoop</a></li><li id="menu-item-75893" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75893"><a href="/overview/elkdownloads/">ELK Downloads</a></li></ul></li><li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="/resources/">Resources</a><ul class="sub-menu"><li id="menu-item-76342" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76342"><a href="/guide/">Guide</a></li><li id="menu-item-4843" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4843"><a href="/videos/">Videos</a></li></ul></li><li id="menu-item-657" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-657"><a href="/community/">Community</a></li><li id="menu-item-68802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68802"><a href="/case-studies/">Case Studies</a></li><li id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45"><a href="/blog/">Blog</a></li><li id="menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a target="_blank" href="http://elasticsearch.com">Company</a></li></ul><ul class="add-on"><li><a href="/overview/elkdownloads/">Download</a></li></ul></nav><div class="container"><div id="header-inner"><h1 id="header-logo"><a class="faux" href="http://www.elasticsearch.org">Elasticsearch</a></h1><nav role="navigation" id="main-nav-container" class="main-nav"><ul id="top-nav" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75892"><a href="/overview/">Overview</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-53 current_page_item menu-item-55"><a href="/resources/">Resources</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-657"><a href="/community/">Community</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68802"><a href="/case-studies/">Case Studies</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45"><a href="/blog/">Blog</a></li><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a target="_blank" href="http://elasticsearch.com">Company</a></li></ul><ul class="add-on"><li><a class="btn btn-primary" href="/overview/elkdownloads/">Download</a></li></ul></nav><div class="slide-trigger navigation" id="nav-trigger" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><hr /><ul id="sub_nav"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76342"><a href="/guide/">Guide</a></li><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4843"><a href="/videos/">Videos</a></li></ul></div></div></header><div class="global_wrapper"><div class="page_content"><div class="container"><section id="search_container" class="active"><form id="blog_search" role="search" action="/" method="get"><div class="blog_search_wrapper"><input id="s" name="s" class="search_term" type="text" placeholder="search" autocomplete="off" tabindex="1" /><input type="submit" class="search_submit" value=" " /><ul id="results"></ul></div></form></section><section class="full_width guide"><article class="guide_content"><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Elasticsearch</a></span> » <span class="breadcrumb-link"><a href="administration.html">Administration, Monitoring and Deployment </a></span> » <span class="breadcrumb-link"><a href="cluster-admin.html">Monitoring</a></span> » <span class="breadcrumb-node">Monitoring individual nodes</span></div><div class="navheader"><span class="prev"><a href="_cluster_health.html">
+              « 
+              Cluster Health</a>
+           
+        </span><span class="next">
+           
+          <a href="_cluster_stats.html">Cluster Stats
+               »
+            </a></span></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a id="_monitoring_individual_nodes"></a>Monitoring individual nodes<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/500_Cluster_Admin/30_node_stats.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="_marvel_for_monitoring.html">Marvel for Monitoring</a></span></dt><dt><span class="section"><a href="_cluster_health.html">Cluster Health</a></span></dt><dt><span class="section"><a href="_monitoring_individual_nodes.html">Monitoring individual nodes</a></span></dt><dt><span class="section"><a href="_cluster_stats.html">Cluster Stats</a></span></dt><dt><span class="section"><a href="_index_stats.html">Index Stats</a></span></dt><dt><span class="section"><a href="_pending_tasks.html">Pending Tasks</a></span></dt><dt><span class="section"><a href="_cat_api.html">Cat API</a></span></dt></dl></div><p>Cluster Health is at one end of the spectrum — a very high-level overview of
+everything in your cluster.  The <span class="emphasis"><em>Node Stats</em></span> API is at the other end.  It provides
+an bewildering array of statistics about each node in your cluster.</p><p>Node Stats provides so many stats that, until you are accustomed to the output,
+you may be unsure which metrics are most important to keep an eye on.  We’ll
+highlight the most important metrics to monitor (but note: we’d encourage you to
+log all the metrics provided — or use Marvel — because you’ll never know when
+you need one stat or another)</p><p>The Node Stats API can be executed with the following:</p><pre class="programlisting prettyprint lang-bash">GET _nodes/stats</pre><p>Starting at the top of the output, we see the cluster name and our first node:</p><pre class="programlisting prettyprint lang-js">{
+   "cluster_name": "elasticsearch_zach",
+   "nodes": {
+      "UNr6ZMf5Qk-YCPA_L18BOQ": {
+         "timestamp": 1408474151742,
+         "name": "Zach",
+         "transport_address": "inet[zacharys-air/192.168.1.131:9300]",
+         "host": "zacharys-air",
+         "ip": [
+            "inet[zacharys-air/192.168.1.131:9300]",
+            "NONE"
+         ],
+...</pre><p>The nodes are listed in a hash, with the key being the UUID of the node.  Some
+information about the node’s network properties are displayed (transport address,
+host, etc).  These values are useful for debugging discovery problems, where
+nodes won’t join the cluster.  Often you’ll see that the port being used is wrong,
+or the node is binding to the wrong IP address/interface.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_indices_section"></a>Indices section<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/500_Cluster_Admin/30_node_stats.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>The indices section lists aggregate statistics for all the indices that reside
+on this particular node.</p><pre class="programlisting prettyprint lang-js">    "indices": {
+        "docs": {
+           "count": 6163666,
+           "deleted": 0
+        },
+        "store": {
+           "size_in_bytes": 2301398179,
+           "throttle_time_in_millis": 122850
+        },</pre><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<code class="literal">docs</code> shows how many documents reside on
+this node, as well as the number of deleted docs which haven’t been purged
+from segments yet.
+</li><li class="listitem">
+The <code class="literal">store</code> portion indicates how much physical storage is consumed by the node.
+This metric includes both primary and replica shards.  If the throttle time is
+large, it may be an indicator that your disk throttling is set too low
+(discussed later in TODO).
+</li></ul></div><pre class="programlisting prettyprint lang-js">        "indexing": {
+           "index_total": 803441,
+           "index_time_in_millis": 367654,
+           "index_current": 99,
+           "delete_total": 0,
+           "delete_time_in_millis": 0,
+           "delete_current": 0
+        },
+        "get": {
+           "total": 6,
+           "time_in_millis": 2,
+           "exists_total": 5,
+           "exists_time_in_millis": 2,
+           "missing_total": 1,
+           "missing_time_in_millis": 0,
+           "current": 0
+        },
+        "search": {
+           "open_contexts": 0,
+           "query_total": 123,
+           "query_time_in_millis": 531,
+           "query_current": 0,
+           "fetch_total": 3,
+           "fetch_time_in_millis": 55,
+           "fetch_current": 0
+        },
+        "merges": {
+           "current": 0,
+           "current_docs": 0,
+           "current_size_in_bytes": 0,
+           "total": 1128,
+           "total_time_in_millis": 21338523,
+           "total_docs": 7241313,
+           "total_size_in_bytes": 5724869463
+        },</pre><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p class="simpara">
+<code class="literal">indexing</code> shows how many docs have been indexed.  This value is a monotonically
+increasing counter, it doesn’t decrease when docs are deleted.  Also note that it
+is incremented any time an <span class="emphasis"><em>index</em></span> operation happens internally, which includes
+things like updates.
+</p><p class="simpara">Also listed are times for indexing, how many docs are currently being indexed,
+and similar statistics for deletes.</p></li><li class="listitem">
+<code class="literal">get</code> shows statistics about get-by-ID statistics.  This includes GETs and
+HEAD requests for a single document
+</li><li class="listitem"><p class="simpara">
+<code class="literal">search</code> describes the number of active searches (<code class="literal">open_contexts</code>), number of
+queries total and how much time has been spent on queries since the node was
+started.  The ratio between <code class="literal">query_total / query_time_in_milis</code> can be used as a
+rough indicator for how efficient your queries are.  The larger the ratio,
+the more time each query is taking and you should consider tuning or optimization.
+</p><p class="simpara">The fetch statistics details the second half of the query process (the "fetch" in
+query-then-fetch).  If more time is spent in fetch than query, this can be an
+indicator of slow disks or very large documents which are being fetched.  Or
+potentially search requests with too large of paginations (<code class="literal">size: 10000</code>, etc).</p></li><li class="listitem"><p class="simpara">
+<code class="literal">merges</code> contains information about Lucene segment merges.  It will tell you
+how many merges are currently active, how many docs are involved, the cumulative
+size of segments being merged and how much time has been spent on merges in total.
+</p><p class="simpara">Merge statistics can be important if your cluster is write-heavy.  Merging consumes
+a large amount of disk I/O and CPU resources.  If your index is write-heavy and
+you see large merge numbers, be sure to read the section on optimizing for indexing
+(TODO).</p><p class="simpara">Note: updates and deletes will contribute to large merge numbers too, since they
+cause segment "fragmentation" which needs to be merged out eventually.</p></li></ul></div><pre class="programlisting prettyprint lang-js">        "filter_cache": {
+           "memory_size_in_bytes": 48,
+           "evictions": 0
+        },
+        "id_cache": {
+           "memory_size_in_bytes": 0
+        },
+        "fielddata": {
+           "memory_size_in_bytes": 0,
+           "evictions": 0
+        },
+        "segments": {
+           "count": 319,
+           "memory_in_bytes": 65812120
+        },
+        ...</pre><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p class="simpara">
+<code class="literal">filter_cache</code> describes how much memory is used by the cached filter bitsets,
+and how many times a filter has been evicted.  A large number of evictions
+<span class="emphasis"><em>could</em></span> be indicative that you need to increase the filter cache size, or that
+your filters are not caching well (e.g. churn heavily due to high cardinality,
+such as caching "now" date expressions).
+</p><p class="simpara">However, evictions are a difficult metric to evaluate.  Filters are cached on a
+per-segment basis, and evicting a filter from a small segment is much less
+expensive than a filter on a large segment.  It’s possible that you have a large
+number of evictions, but they all occur on small segments, which means they have
+little impact on query performance.</p><p class="simpara">Use the eviction metric as a rough guideline.  If you see a large number, investigate
+your filters to make sure they are caching well.  Filters that constantly evict,
+even on small segments, will be much less effective than properly cached filters.</p></li><li class="listitem">
+<code class="literal">id_cache</code> shows the memory usage by Parent/Child mappings.  When you use
+parent/children, the <code class="literal">id_cache</code> maintains an in-memory-join table which maintains
+the relationship.  This statistic will show you how much memory is being used.
+There is little you can do to affect this memory usage, since it is a fairly linear
+relationship with the number of parent/child docs.  It is heap-resident, however,
+so a good idea to keep an eye on it.
+</li><li class="listitem">
+<code class="literal">field_data</code> displays the memory used by field data, which is used for aggregations,
+sorting, etc.  There is also an eviction count.  Unlike <code class="literal">filter_cache</code>, the eviction
+count here is very useful:  it should be zero, or very close.  Since field data
+is not a cache, any eviction is very costly and should be avoided.  If you see
+evictions here, you need to re-evaluate your memory situation, field data limits,
+queries or all three.
+</li><li class="listitem"><p class="simpara">
+<code class="literal">segments</code> will tell you how many Lucene segments this node currently serves.
+This can be an important number.  Most indices should have around 50-150 segments,
+even if they are terrabytes in size with billions of documents.  Large numbers
+of segments can indicate a problem with merging (e.g. merging is not keeping up
+with segment creation).  Note that this statistic is the aggregate total of all
+indices on the node, so keep that in mind.
+</p><p class="simpara">The <code class="literal">memory</code> statistic gives you an idea how much memory is being used by the
+Lucene segments themselves.  This includes low-level data structures such as
+posting lists, dictionaries and bloom filters.  A very large number of segments
+will increase the amount of overhead lost to these data structures, and the memory
+usage can be a handy metric to gauge that overhead.</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_os_and_process_sections"></a>OS and Process Sections<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/500_Cluster_Admin/30_node_stats.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>The OS and Process sections are fairly self-explanatory and won’t be covered
+in great detail.  They list basic resource statistics such as CPU and load.  The
+OS section describes it for the entire OS, while the Process section shows just
+what the Elasticsearch JVM process is using.</p><p>These are obviously useful metrics, but are often being measured elsewhere in your
+monitoring stack. Some stats include:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+CPU
+</li><li class="listitem">
+Load
+</li><li class="listitem">
+Memory usage
+</li><li class="listitem">
+Swap usage
+</li><li class="listitem">
+Open file descriptors
+</li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_jvm_section"></a>JVM Section<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/500_Cluster_Admin/30_node_stats.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>The JVM section contains some critical information about the JVM process which
+is running Elasticsearch.  Most importantly, it contains garbage collection details,
+which have a large impact on the stability of your Elasticsearch cluster.</p><div class="sidebar"><a id="garbage_collector_primer"></a><div class="titlepage"><div><div><p class="title"><strong>Garbage Collection Primer</strong></p></div></div></div><p>Before we describe the stats, it is useful to give a crash course in garbage
+collection and it’s impact on Elasticsearch.  If you are familar with garbage
+collection in the JVM, feel free to skip down.</p><p>Java is a <span class="emphasis"><em>garbage collected</em></span> language, which means that the programmer does
+not manually manage memory allocation and deallocation.  The programmer simply
+writes code, and the Java Virtual Machine (JVM) manages the process of allocating
+memory as needed, and then later cleaning up that memory when no longer needed.</p><p>When memory is allocated to a JVM process, it is allocated in a big chunk called
+the <span class="emphasis"><em>heap</em></span>.  The JVM then breaks the heap into two different groups, referred to as
+"generations":</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+Young (or Eden): the space where newly instantiated objects are allocated. The
+young generation space is often quite small, usually 100mb-500mb.  The young-gen
+also contains two "survivor" spaces
+</li><li class="listitem">
+Old: the space where older objects are stored.  These objects to be long-lived
+and persist for a long time.  The old-gen is often much larger than then young-gen,
+and Elasticsearch nodes can see old-gens as large as 30gb.
+</li></ul></div><p>When an object is instantiated, it is placed into young-gen.  When the young
+generation space is full, a young-gen GC is started.  Objects that are still
+"alive" are moved into one of the survivor spaces, and "dead" objects are removed.
+If an object has survived several young-gen GCs, it will be "tenured" into the
+old generation.</p><p>A similar process happens in the old generation:  when the space becomes full, a
+garbage collection is started and "dead" objects are removed.</p><p>Nothing comes for free, however.  Both the young and old generation garbage collectors
+have phases which "stop the world".  During this time, the JVM literally halts
+execution of the program so that it can trace the object graph and collect "dead"
+objects.</p><p>During this "stop the world" phase, nothing happens.  Requests are not serviced,
+pings are not responded to, shards are not relocated.  The world quite literally
+stops.</p><p>This isn’t a big deal for the young generation; its small size means GCs execute
+quickly.  But the old-gen is quite a bit larger, and a slow GC here could mean
+1s or even 15s of pausing…which is unacceptable for server software.</p><p>The garbage collectors in the JVM are <span class="emphasis"><em>very</em></span> sophisticated algorithms and do
+a great job minimizing pauses.  And Elasticsearch tries very hard to be "garbage
+collection friendly", by intelligently reusing objects internally, reusing network
+buffers, offering features like <a class="xref" href="doc-values.html" title="Doc Values">Doc Values</a>, etc.  But ultimately,
+GC frequency and duration is a metric that needs to be watched by you since it
+is the number one culprit for cluster instability.</p><p>A cluster which is frequently experiencing long GC will be a cluster that is under
+heavy load with not enough memory.  These long GCs will make nodes drop off the
+cluster for brief periods.  This instability causes shards to relocate frequently
+as ES tries to keep the cluster balanced and enough replicas available.  This in
+turn increases network traffic and Disk I/O, all while your cluster is attempting
+to service the normal indexing and query load.</p><p>In short, long GCs are bad and they need to be minimized as much as possible.</p></div><p>Because garbage collection is so critical to ES, you should become intimately
+familiar with this section of the Node Stats API:</p><pre class="programlisting prettyprint lang-js">        "jvm": {
+            "timestamp": 1408556438203,
+            "uptime_in_millis": 14457,
+            "mem": {
+               "heap_used_in_bytes": 457252160,
+               "heap_used_percent": 44,
+               "heap_committed_in_bytes": 1038876672,
+               "heap_max_in_bytes": 1038876672,
+               "non_heap_used_in_bytes": 38680680,
+               "non_heap_committed_in_bytes": 38993920,</pre><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p class="simpara">
+The <code class="literal">jvm</code> section first lists some general stats about heap memory usage.  You
+can see how much of the heap is being used, how much is committed (actually allocated
+to the process), and the max size the heap is allowed to grow to.  Ideally,
+<code class="literal">heap_committed_in_bytes</code> should be identical to <code class="literal">heap_max_in_bytes</code>.  If the
+committed size is smaller, the JVM will have to resize the heap eventually…
+and this is a very expensive process.  If your numbers are not identical, see
+this section <a class="xref" href="TODO.html" title="Appendix A. TODO">Appendix A, <em>TODO</em></a> in the next chapter to configure it correctly.
+</p><p class="simpara">The <code class="literal">heap_used_percent</code> metric is a useful number to keep an eye on.  Elasticsearch
+is configured to initiate GCs when the heap reaches 75% full.  If your node is
+consistently &gt;= 75%, that indicates that your node is experiencing "memory pressure".
+This is a warning sign that slow GCs may be in your near future.</p><p class="simpara">If the heap usage is consistently &gt;=85%, you are in trouble.  Heaps over 90-95%
+are in risk of horrible performance with long 10-30s GCs at best, Out-of-memory
+(OOM) exceptions at worst.</p></li></ul></div><pre class="programlisting prettyprint lang-js">               "pools": {
+                  "young": {
+                     "used_in_bytes": 138467752,
+                     "max_in_bytes": 279183360,
+                     "peak_used_in_bytes": 279183360,
+                     "peak_max_in_bytes": 279183360
+                  },
+                  "survivor": {
+                     "used_in_bytes": 34865152,
+                     "max_in_bytes": 34865152,
+                     "peak_used_in_bytes": 34865152,
+                     "peak_max_in_bytes": 34865152
+                  },
+                  "old": {
+                     "used_in_bytes": 283919256,
+                     "max_in_bytes": 724828160,
+                     "peak_used_in_bytes": 283919256,
+                     "peak_max_in_bytes": 724828160
+                  }
+               }
+            },</pre><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+The <code class="literal">young</code>, <code class="literal">survivor</code> and <code class="literal">old</code> sections will give you a breakdown of memory
+usage of each generation in the GC.  These stats are handy to keep an eye on
+relative sizes, but are often not overly important when debugging problems.
+</li></ul></div><pre class="programlisting prettyprint lang-js">            "gc": {
+               "collectors": {
+                  "young": {
+                     "collection_count": 13,
+                     "collection_time_in_millis": 923
+                  },
+                  "old": {
+                     "collection_count": 0,
+                     "collection_time_in_millis": 0
+                  }
+               }
+            }</pre><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p class="simpara">
+<code class="literal">gc</code> section shows the garbage collection counts and cumulative time for both
+young and old generations.  You can safely ignore the young generation counts
+for the most part:  this number will usually be very large.  That is perfectly
+normal.
+</p><p class="simpara">In contrast, the old generation collection count should remain very small, and
+have a small <code class="literal">collection_time_in_millis</code>.  These are cumulative counts, so it is
+hard to give an exact number when you should start worrying (e.g. a node with a
+1-year uptime will have a large count even if it is healthy) — this is one of the
+reasons why tools such as Marvel are so helpful.  GC counts <span class="emphasis"><em>over time</em></span> are the
+important consideration.</p><p class="simpara">Time spent GC’ing is also important.  For example, a certain amount of garbage
+is generated while indexing documents.  This is normal, and causes a GC every
+now-and-then.  These GCs are almost always fast — a millisecond or two — and
+do not impact the node.  This is much different from 10 second GCs.</p><p class="simpara">Our best advice is to collect collection counts and duration periodically (or use Marvel)
+and keep an eye out for frequent GCs.  You can also enable slow-GC logging,
+discussed in <a class="xref" href="TODO.html" title="Appendix A. TODO">Appendix A, <em>TODO</em></a></p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_threadpool_section"></a>Threadpool Section<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/500_Cluster_Admin/30_node_stats.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>Elasticsearch maintains a number of threadpools internally.  These threadpools
+cooperate to get work done, passing work between each other as necessary. In
+general, you don’t need to configure or tune the threadpools, but it is sometimes
+useful to see their stats so you can gain insight into how your cluster is behaving.</p><p>There are about a dozen threadpools, but they all share the same format:</p><pre class="programlisting prettyprint lang-js">          "index": {
+             "threads": 1,
+             "queue": 0,
+             "active": 0,
+             "rejected": 0,
+             "largest": 1,
+             "completed": 1
+          }</pre><p>Each threadpool lists the number of threads that are configured (<code class="literal">threads</code>),
+how many of those threads are actively processing some work (<code class="literal">active</code>) and how
+many work units are sitting in a queue (<code class="literal">queue</code>).</p><p>If the queue fills up to its limit, new workunits will begin to be rejected and
+you will see that reflected in the <code class="literal">rejected</code> statistic.  This is often a sign
+that your cluster is starting to bottleneck on some resources, since a full
+queue means your node/cluster is processing at maximum speed but unable to keep
+up with the influx of work.</p><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong>Bulk Rejections</strong></p></div></div></div><p>If you are going to encounter queue rejections, it will most likely be caused
+by Bulk indexing requests.  It is easy to send many Bulk requests to Elasticsearch
+using concurrent import processes.  More is better, right?</p><p>In reality, each cluster has a certain limit at which it can not keep up with
+ingestion.  Once this threshold is crossed, the queue will quickly fill up and
+new bulks will be rejected.</p><p>This is a <span class="emphasis"><em>good thing</em></span>.  Queue rejections are a useful form of back-pressure.  They
+let you know that your cluster is at maximum capacity, which is much better than
+sticking data into an in-memory queue.  Increasing the queue size doesn’t increase
+performance, it just hides the problem.  If your cluster can only process 10,000
+doc/s, it doesn’t matter if the queue is 100 or 10,000,000…your cluster can
+still only process 10,000 docs/s.</p><p>The queue simply hides the performance problem and carries real risk of data-loss.
+Anything sitting in a queue is by definition not processed yet.  If the node
+goes down, all those requests are lost forever.  Furthermore, the queue eats
+up a lot of memory, which is not ideal.</p><p>It is much better to handle queuing in your application by gracefully handling
+the back-pressure from a full queue.  When you receive bulk rejections you should:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+Pause the import thread for 3-5 seconds
+</li><li class="listitem">
+Extract the rejected actions from the bulk response, since it is probable that
+many of the actions were successful. The bulk response will tell you which succeeded,
+and which were rejected.
+</li><li class="listitem">
+Send a new bulk request with just the rejected actions
+</li><li class="listitem">
+Repeat at step 1. if rejections were encountered again
+</li></ol></div><p>Using this procedure, your code naturally adapts to the load of your cluster and
+naturally backs off.</p><p>Rejections are not errors: they just mean you should try again later.</p></div><p>There are a dozen different threadpools.  Most you can safely ignore, but a few
+are good to keep an eye on:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<code class="literal">indexing</code>: threadpool for normal indexing requests
+</li><li class="listitem">
+<code class="literal">bulk</code>: bulk requests, which are distinct from the non-bulk indexing requests
+</li><li class="listitem">
+<code class="literal">get</code>: GET-by-ID operations
+</li><li class="listitem">
+<code class="literal">search</code>: all search and query requests
+</li><li class="listitem">
+<code class="literal">merging</code>: threadpool dedicated to managing Lucene merges
+</li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_fs_and_network_sections"></a>FS and Network sections<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/500_Cluster_Admin/30_node_stats.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>Continuing down the Node Stats API, you’ll see a bunch of statistics about your
+filesystem:  free space, data directory paths, disk IO stats, etc.  If you are
+not monitoring free disk space, you can get those stats here.  The Disk IO stats
+are also handy, but often more specialized command-line tools (<code class="literal">iostat</code>, etc)
+are more useful.</p><p>Obviously, Elasticsearch has a difficult time functioning if you run out of disk
+space…so make sure you don’t :)</p><p>There are also two sections on network statistics:</p><pre class="programlisting prettyprint lang-js">        "transport": {
+            "server_open": 13,
+            "rx_count": 11696,
+            "rx_size_in_bytes": 1525774,
+            "tx_count": 10282,
+            "tx_size_in_bytes": 1440101928
+         },
+         "http": {
+            "current_open": 4,
+            "total_opened": 23
+         },</pre><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<code class="literal">transport</code> shows some very basic stats about the "transport address".  This
+relates to inter-node communication (often on port 9300) and any TransportClient
+or NodeClient connections.  Don’t worry yourself if you see many connections here,
+Elasticsearch maintains a large number of connections between nodes
+</li><li class="listitem">
+<code class="literal">http</code> represents stats about the HTTP port (often 9200).  If you see a very
+large <code class="literal">total_opened</code> number that is constantly increasing, that is a sure-sign
+that one of your HTTP clients is not using keep-alive connections.  Persistent,
+keep-alive connections are important for performance, since building up and tearing
+down sockets is expensive (and wastes file descriptors).  Make sure your clients
+are configured appropriately.
+</li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_circuit_breaker"></a>Circuit Breaker<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/500_Cluster_Admin/30_node_stats.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>Finally, we come to the last section: stats about the field data circuit breaker
+(introduced in <a class="xref" href="_limiting_memory_usage.html#circuit-breaker" title="Circuit Breaker">Circuit Breaker</a>):</p><pre class="programlisting prettyprint lang-js">         "fielddata_breaker": {
+            "maximum_size_in_bytes": 623326003,
+            "maximum_size": "594.4mb",
+            "estimated_size_in_bytes": 0,
+            "estimated_size": "0b",
+            "overhead": 1.03,
+            "tripped": 0
+         }</pre><p>Here, you can determine what the maximum circuit breaker size is (e.g. at what
+size the circuit breaker will trip if a query attempts to use more memory).  It
+will also let you know how many times the circuit breaker has been tripped, and
+the currently configured "overhead".  The overhead is used to pad estimates
+since some queries are more difficult to estimate than others.</p><p>The main thing to watch is the <code class="literal">tripped</code> metric.  If this number is large, or
+consistently increasing, it’s a sign that your queries may need to be optimized
+or that you may need to obtain more memory (either per box, or by adding more
+nodes).</p></div></div><div class="navfooter"><span class="prev"><a href="_cluster_health.html">
+              « 
+              Cluster Health</a>
+           
+        </span><span class="next">
+           
+          <a href="_cluster_stats.html">Cluster Stats
+               »
+            </a></span></div></article></section></div></div></div><footer><div id="footer_container" class="full_wrapper"><div class="container"><nav role="navigation"><ul id="footer_nav" class="menu"><li id="menu-item-36" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-36"><a target="_blank" href="http://elasticsearch.com">Company</a></li><li id="menu-item-74980" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74980"><a href="/resources/">Resources</a></li><li id="menu-item-3106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3106"><a href="/terms-of-use/">Terms</a></li><li id="menu-item-3107" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3107"><a href="/privacy-and-cookie-policy/">Privacy</a></li><li id="menu-item-3105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3105"><a href="/contact/">Contact</a></li><li id="menu-item-39" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39"><a href="/blog/">Blog</a></li></ul></nav><div id="social"><a href="https://twitter.com/elasticsearch" class="social_icons" target="_blank"><i class="twitter"></i></a><a href="https://www.facebook.com/elasticsearch" class="social_icons" target="_blank"><i class="facebook"></i></a></div><div id="footer_form"><label class="form_label">Sign up for updates!</label><div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_4"><a id="gf_4" name="gf_4" class="gform_anchor"></a><form method="post" enctype="multipart/form-data" target="gform_ajax_frame_4" id="gform_4" action="/empty-template/#gf_4"><div class="gform_body"><ul id="gform_fields_4" class="gform_fields top_label description_below"><li id="field_4_6" class="gfield               gfield_contains_required"><label class="gfield_label" for="input_4_6">enter you email<span class="gfield_required">*</span></label><div class="ginput_container"><input name="input_6" id="input_4_6" type="email" value="" class="medium" tabindex="50" /></div></li><li id="field_4_2" class="gfield     gform_hidden"><input name="input_2" id="input_4_2" type="hidden" class="gform_hidden" value="813-MAM-392" /></li><li id="field_4_3" class="gfield     gform_hidden"><input name="input_3" id="input_4_3" type="hidden" class="gform_hidden" value="WEB.org" /></li><li id="field_4_4" class="gfield     gform_hidden"><input name="input_4" id="input_4_4" type="hidden" class="gform_hidden" value="WEB.org - Footer - Updates" /></li></ul></div><script type="text/javascript">//<![CDATA[
+            jQuery(function(){
+                jQuery('#gform_submit_button_4').click( function() {
+                    if(window["gf_submitting_4"]){
+                        return false;
+                    }
+                    if( !jQuery("#gform_4")[0].checkValidity || jQuery("#gform_4")[0].checkValidity()){
+                        window["gf_submitting_4"]=true;
+                    }
+                });
+            });
+            //]]></script><div class="gform_footer top_label"><input type="submit" id="gform_submit_button_4" class="button gform_button" value="Submit" tabindex="51" /><input type="hidden" name="gform_ajax" value="form_id=4&amp;title=&amp;description=" /><input type="hidden" class="gform_hidden" name="is_submit_4" value="1" /><input type="hidden" class="gform_hidden" name="gform_submit" value="4" /><input type="hidden" class="gform_hidden" name="gform_unique_id" value="" /><input type="hidden" class="gform_hidden" name="state_4" value="WyJhOjA6e30iLCJmMjE2MmM2ZjUxYmQ4M2Q3ZmMzNzVlNmY2ODYyZTI2NCJd" /><input type="hidden" class="gform_hidden" name="gform_target_page_number_4" id="gform_target_page_number_4" value="0" /><input type="hidden" class="gform_hidden" name="gform_source_page_number_4" id="gform_source_page_number_4" value="1" /><input type="hidden" name="gform_field_values" value="" /></div></form></div><iframe style="display:none;width:0px; height:0px;" src="about:blank" name="gform_ajax_frame_4" id="gform_ajax_frame_4"></iframe><script type="text/javascript">//<![CDATA[
+                    function gformInitSpinner_4(){jQuery('#gform_4').submit(function(){if(jQuery('#gform_ajax_spinner_4').length == 0){jQuery('#gform_submit_button_4, #gform_wrapper_4 .gform_next_button, #gform_wrapper_4 .gform_image_button').after('<' + 'img id="gform_ajax_spinner_4"  class="gform_ajax_spinner" src="http://www.elasticsearch.org/content/plugins/gravityforms/images/spinner.gif" alt="" />'); }} );}jQuery(document).ready(function($){gformInitSpinner_4();jQuery('#gform_ajax_frame_4').load( function(){var contents = jQuery(this).contents().find('*').html();var is_postback = contents.indexOf('GF_AJAX_POSTBACK') >= 0;if(!is_postback){return;}var form_content = jQuery(this).contents().find('#gform_wrapper_4');var is_redirect = contents.indexOf('gformRedirect(){') >= 0;var is_form = !(form_content.length <= 0 || is_redirect);if(is_form){jQuery('#gform_wrapper_4').html(form_content.html());jQuery(document).scrollTop(jQuery('#gform_wrapper_4').offset().top);if(window['gformInitDatepicker']) {gformInitDatepicker();}if(window['gformInitPriceFields']) {gformInitPriceFields();}var current_page = jQuery('#gform_source_page_number_4').val();gformInitSpinner_4();jQuery(document).trigger('gform_page_loaded', [4, current_page]);window['gf_submitting_4'] = false;}else if(!is_redirect){var confirmation_content = jQuery(this).contents().find('#gforms_confirmation_message').html();if(!confirmation_content){confirmation_content = contents;}setTimeout(function(){jQuery('#gform_wrapper_4').replaceWith('<' + 'div id=\'gforms_confirmation_message\' class=\'gform_confirmation_message_4\'' + '>' + confirmation_content + '<' + '/div' + '>');jQuery(document).scrollTop(jQuery('#gforms_confirmation_message').offset().top);jQuery(document).trigger('gform_confirmation_loaded', [4]);window['gf_submitting_4'] = false;}, 50);}else{jQuery('#gform_4').append(contents);if(window['gformRedirect']) {gformRedirect();}}jQuery(document).trigger('gform_post_render', [4, current_page]);} );} );</script><script type='text/javascript'> jQuery(document).ready(function(){jQuery(document).trigger('gform_post_render', [4, 1]) } );
+                    //]]></script></div><div class="legal"><p>© 2014 All Rights Reserved - Elasticsearch </p><p>Apache Lucene and Lucene are trademarks of the Apache Software Foundation</p></div></div></div></footer><section id="cookie"><div class="container"><div class="eu">
+                Elasticsearch uses cookies to provide a better user experience to visitors of our website. Read more about our cookie policy <a href="/privacy-and-cookie-policy/">here.</a><a data-action="accept" class="cta">Accept cookies</a></div><div class="uk">
+                Elasticsearch uses cookies to provide a better user experience to visitors of our website. Read more about our cookie policy <a href="/privacy-and-cookie-policy/">here.</a><a data-action="dismiss" class="cta dismiss">X</a></div></div></section><script type="text/javascript">
+      if (window.aiModifyParent) aiModifyParent();
+      (function ($, $a, $title, $list) {
+        $a = $('[id^="js-api-method-index"]');
+        if (!$a.size()) return;
+        $('.guide_content').addClass('js-client-docs');
+        $list = $a.siblings('.itemizedlist').detach();
+        $title = $(document.createElement('h2')).text('api methods')
+        $a.parent().remove();
+        $('.toc').first().append($(document.createElement('div')).addClass('js-api-method-index').append($title).append($list));
+      }(jQuery));
+    </script><script type="text/javascript">if(window.aiModifyParent) {aiModifyParent();}</script><script type="text/javascript" src="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/prettify.js?ver=3.5.2"></script><script type="text/javascript" src="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/launch.js?ver=3.5.2"></script><script type="text/javascript" src="http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201413"></script><script type="text/javascript" src="http://www.elasticsearch.org/content/themes/elasticsearch-org/js/global.min.js?ver=1395082598"></script><script type="text/javascript" src="http://www.elasticsearch.org/content/themes/elasticsearch-org/js/froogaloop.min.js?ver=1"></script><script type="text/javascript">
+if(jQuery('body').data('cookie') != "eu" || jQuery.cookie('allowCookies')){
+    document.write(unescape("%3Cscript src='" + document.location.protocol +
+    "//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+}
+</script><script>
+if(jQuery('body').data('cookie') != "eu" || jQuery.cookie('allowCookies')){
+    Munchkin.init('813-MAM-392');
+
+    // crazyegg
+    setTimeout(function(){var a=document.createElement("script");
+    var b=document.getElementsByTagName("script")[0];
+    a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0014/4686.js?"+Math.floor(new Date().getTime()/3600000);
+    a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+}
+</script></body></html>

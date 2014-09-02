@@ -61,7 +61,8 @@ only return buckets that are between the minimum and maximum value in your data.
 representing those months (empty or otherwise).  To get the full year, we need
 to tell  Elasticsearch that we want buckets even if they fall <span class="emphasis"><em>before</em></span> the
 minimum value or <span class="emphasis"><em>after</em></span> the maximum value.</p><p>The <code class="literal">extended_bounds</code> parameter does just that.  Once you add those two settings,
-you’ll get a response that is easy to plug straight into your graphing libraries.</p></div><div class="navfooter"><span class="prev"><a href="_looking_at_time.html">
+you’ll get a response that is easy to plug straight into your graphing libraries
+and give you a graph like this:</p><div class="informalfigure"><a id="date-histo-ts1"></a><div class="mediaobject"><img src="images/300_35_ts1.svg" alt="Line chart of cars sold per month" /></div></div></div><div class="navfooter"><span class="prev"><a href="_looking_at_time.html">
               « 
               Looking at time</a>
            

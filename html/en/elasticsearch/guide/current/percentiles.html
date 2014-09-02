@@ -39,9 +39,9 @@ job to guarantee fast response times to visitors.  You must therefore monitor
 your website latency to determine if you are meeting your goal.</p><p>A common metric to use in this scenario is the average latency.  But this is actually
 a poor choice (despite being common), because averages can easily hide outliers.
 A median metric also suffers the same problem.  You could try a maximum, but this
-metric is easily skewed by just a single outlier.</p><p>This graph visualizes the problem.  If you rely on simple metrics like mean or median, you might see a graph that looks like this:</p><div class="informalfigure"><a id="percentile-mean-median"></a><div class="mediaobject"><img src="images/300_65_percentile1.png" alt="Assessing website latency using mean/median" /></div></div><p>Everything looks fine.  There is a slight bump, but nothing to be concerned about.
+metric is easily skewed by just a single outlier.</p><p>This graph visualizes the problem.  If you rely on simple metrics like mean or median, you might see a graph that looks like this:</p><div class="informalfigure"><a id="percentile-mean-median"></a><div class="mediaobject"><img src="images/300_65_percentile1.svg" alt="Assessing website latency using mean/median" /></div></div><p>Everything looks fine.  There is a slight bump, but nothing to be concerned about.
 But if we load up the 99th percentile (the value which accounts for the slowest 1%
-of latencies), we see an entirely different story:</p><div class="informalfigure"><a id="percentile-mean-median-percentile"></a><div class="mediaobject"><img src="images/300_65_percentile2.png" alt="Assessing website latency using percentiles" /></div></div><p>Woah!  At 9:30 AM, the mean is only 75ms.  As a system administrator, you wouldn’t
+of latencies), we see an entirely different story:</p><div class="informalfigure"><a id="percentile-mean-median-percentile"></a><div class="mediaobject"><img src="images/300_65_percentile2.svg" alt="Assessing website latency using percentiles" /></div></div><p>Woah!  At 9:30 AM, the mean is only 75ms.  As a system administrator, you wouldn’t
 look at this value twice.  Everything normal!  But the 99th percentile is telling
 you that 1% of your customers are seeing latency in excess of 850ms…a very
 different story.  There is also a smaller spike at 4:48 AM which wasn’t even
