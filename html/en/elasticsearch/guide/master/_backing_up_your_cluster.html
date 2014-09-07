@@ -59,8 +59,8 @@ We provide a name for our repository, in this case it is called <code class="lit
 We specify that the type of the repository should be a shared file system
 </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO311-3"><span><img src="images/icons/callouts/3.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 And finally, we provide a mounted drive as the destination
-</p></td></tr></table></div><p>INFORMATION: The shared file system path must be accessible from all nodes in your
-cluster!</p><p>This will create the repository and required metadata at the mount point.  There
+</p></td></tr></table></div><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>The shared file system path must be accessible from all nodes in your
+cluster!</p></div></div><p>This will create the repository and required metadata at the mount point.  There
 are also some other options which you may want to configure, depending on the
 performance profile of your nodes, network and repository location:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
 <code class="literal">max_snapshot_bytes_per_sec</code>: When snapshotting data into the repo, this controls

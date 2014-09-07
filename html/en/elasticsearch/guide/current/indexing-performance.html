@@ -67,7 +67,7 @@ indexing 1000 documents per bulk:</p><div class="itemizedlist"><ul class="itemiz
 at the coordinating node, so it is the physical size of the bulk that is more
 important than the document count.</p><p>Start with a bulk size around 5-15mb and slowly increase it until you do not
 see performance gains anymore.  Then start increasing the concurrency of your
-bulk ingestion (multiple threads, etc).</p><p>Monitor your nodes with Marvel and/or tools like <code class="literal">iostat</code>, <code class="literal">top, and `ps</code> to see
+bulk ingestion (multiple threads, etc).</p><p>Monitor your nodes with Marvel and/or tools like <code class="literal">iostat</code>, <code class="literal">top</code>, and <code class="literal">ps</code> to see
 when resources start to bottleneck.  If you start to receive <code class="literal">EsRejectedExecutionException</code>
 then your cluster is at-capacity with <span class="emphasis"><em>some</em></span> resource and you need to reduce
 concurrency.</p><p>When ingesting data, make sure bulk requests are round-robin’ed across all your
