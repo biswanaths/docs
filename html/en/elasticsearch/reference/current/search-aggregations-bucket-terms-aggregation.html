@@ -228,7 +228,7 @@ PATH                :=  &lt;AGG_NAME&gt;[&lt;AGG_SEPARATOR&gt;&lt;AGG_NAME&gt;]*
          no warranty that a <code class="literal">match_all</code> query would find a positive document count for those terms.</p></div></div><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>When NOT sorting on <code class="literal">doc_count</code> descending, high values of <code class="literal">min_doc_count</code> may return a number of buckets
          which is less than <code class="literal">size</code> because not enough data was gathered from the shards. Missing buckets can be
          back by increasing <code class="literal">shard_size</code>.
-         Setting <code class="literal">shard_min_doc_count</code> too high will cause terms to be filtered out on a shard level. This value should be set much lower than <code class="literal">min_doc_count/#shards</code>.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_script_11"></a>Script<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/search/aggregations/bucket/terms-aggregation.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>Generating the terms using a script:</p><pre class="programlisting prettyprint lang-js">{
+         Setting <code class="literal">shard_min_doc_count</code> too high will cause terms to be filtered out on a shard level. This value should be set much lower than <code class="literal">min_doc_count/#shards</code>.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="search-aggregations-bucket-terms-aggregation-script"></a>Script<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/search/aggregations/bucket/terms-aggregation.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>Generating the terms using a script:</p><pre class="programlisting prettyprint lang-js">{
     "aggs" : {
         "genders" : {
             "terms" : {
@@ -287,7 +287,28 @@ the flags are concatenated using the <code class="literal">|</code> character as
 <a class="ulink" href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#MULTILINE" target="_top"><code class="literal">MULTILINE</code></a>,
 <a class="ulink" href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#UNICODE_CASE" target="_top"><code class="literal">UNICODE_CASE</code></a>,
 <a class="ulink" href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#UNICODE_CHARACTER_CLASS" target="_top"><code class="literal">UNICODE_CHARACTER_CLASS</code></a> and
-<a class="ulink" href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#UNIX_LINES" target="_top"><code class="literal">UNIX_LINES</code></a></p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_collect_mode"></a>Collect mode<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/search/aggregations/bucket/terms-aggregation.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p><span class="added">
+<a class="ulink" href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#UNIX_LINES" target="_top"><code class="literal">UNIX_LINES</code></a></p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_multi_field_terms_aggregation"></a>Multi-field terms aggregation<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/search/aggregations/bucket/terms-aggregation.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>The <code class="literal">terms</code> aggregation does not support collecting terms from multiple fields
+in the same document.  The reason is that the <code class="literal">terms</code> agg doesn’t collect the
+string term values themselves, but rather uses
+<a class="link" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-execution-hint" title="Execution hint">global ordinals</a>
+to produce a list of all of the unique values in the field.  Global ordinals
+results in an important performance boost which would not be possible across
+multiple fields.</p><p>There are two approaches that you can use to perform a <code class="literal">terms</code> agg across
+multiple fields:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+<a class="link" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-script" title="Script">Script</a>
+</span></dt><dd>
+Use a script to retrieve terms from multiple fields.  This disables the global
+ordinals optimization and will be slower than collecting terms from a single
+field, but it gives you the flexibility to implement this option at search
+time.
+</dd><dt><span class="term">
+<a class="link" href="mapping-core-types.html#copy-to" title="Copy to fieldedit"><code class="literal">copy_to</code> field</a>
+</span></dt><dd>
+If you know ahead of time that you want to collect the terms from two or more
+fields, then use <code class="literal">copy_to</code> in your mapping to create a new dedicated field at
+index time which contains the values from both fields.  You can aggregate on
+this single field, which will benefit from the global ordinals optimization.
+</dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_collect_mode"></a>Collect mode<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/search/aggregations/bucket/terms-aggregation.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p><span class="added">
       [<span class="version">1.3.0</span>]
       <span class="detail">Added in 1.3.0.</span></span> Deferring calculation of child aggregations</p><p>For fields with many unique terms and a small number of required results it can be more efficient to delay the calculation
 of child aggregations until the top parent-level aggs have been pruned. Ordinarily, all branches of the aggregation tree
@@ -338,7 +359,7 @@ elasticsearch will always use the <code class="literal">depth_first</code> colle
 Note that the <code class="literal">order</code> parameter can still be used to refer to data from a child aggregation when using the <code class="literal">breadth_first</code> setting - the parent
 aggregation understands that this child aggregation will need to be called first before any of the other child aggregations.</p><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>It is not possible to nest aggregations such as <code class="literal">top_hits</code> which require access to match score information under an aggregation that uses
 the <code class="literal">breadth_first</code> collection mode. This is because this would require a RAM buffer to hold the float score value for every document and
-this would typically be too costly in terms of RAM.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_execution_hint"></a>Execution hint<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/search/aggregations/bucket/terms-aggregation.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p><span class="added">
+this would typically be too costly in terms of RAM.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="search-aggregations-bucket-terms-aggregation-execution-hint"></a>Execution hint<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/search/aggregations/bucket/terms-aggregation.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p><span class="added">
       [<span class="version">1.2.0</span>]
       <span class="detail">Added in 1.2.0.</span></span> Added the <code class="literal">global_ordinals</code>, <code class="literal">global_ordinals_hash</code> and <code class="literal">global_ordinals_low_cardinality</code> execution modes</p><p><span class="deprecated">
       [<span class="version">1.3.0</span>]
