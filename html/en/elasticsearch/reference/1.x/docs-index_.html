@@ -215,12 +215,12 @@ replication group have indexed the document (sync replication). To
 enable asynchronous replication, causing the replication process to take
 place in the background, set the <code class="literal">replication</code> parameter to <code class="literal">async</code>.
 When asynchronous replication is used, the index operation will return
-as soon as the operation succeeds on the primary shard.</p><h3><a id="index-refresh"></a>Refresh<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/docs/index_.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>To refresh the index immediately after the operation occurs, so that the
-document appears in search results immediately, the <code class="literal">refresh</code> parameter
-can be set to <code class="literal">true</code>. Setting this option to <code class="literal">true</code> should <span class="strong"><strong>ONLY</strong></span> be
-done after careful thought and verification that it does not lead to
-poor performance, both from an indexing and a search standpoint. Note,
-getting a document using the get API is completely realtime.</p><h3><a id="timeout"></a>Timeout<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/docs/index_.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>The primary shard assigned to perform the index operation might not be
+as soon as the operation succeeds on the primary shard.</p><h3><a id="index-refresh"></a>Refresh<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/docs/index_.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>To refresh the shard (not the whole index) immediately after the operation
+occurs, so that the document appears in search results immediately, the
+<code class="literal">refresh</code> parameter can be set to <code class="literal">true</code>. Setting this option to <code class="literal">true</code> should
+<span class="strong"><strong>ONLY</strong></span> be done after careful thought and verification that it does not lead to
+poor performance, both from an indexing and a search standpoint. Note, getting
+a document using the get API is completely realtime.</p><h3><a id="timeout"></a>Timeout<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/docs/index_.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>The primary shard assigned to perform the index operation might not be
 available when the index operation is executed. Some reasons for this
 might be that the primary shard is currently recovering from a gateway
 or undergoing relocation. By default, the index operation will wait on

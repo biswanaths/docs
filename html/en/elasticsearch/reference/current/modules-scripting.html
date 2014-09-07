@@ -191,7 +191,9 @@ The <code class="literal">doc['field_name']</code> can be used to access specifi
 a document (the document in question is usually derived by the context
 the script is used). Document fields are very fast to access since they
 end up being loaded into memory (all the relevant field values/tokens
-are loaded to memory).</p><p>The following data can be extracted from a field:</p><div class="informaltable"><table cellpadding="4px" border="1"><colgroup><col class="col_1" /><col class="col_2" /></colgroup><thead><tr><th align="left" valign="top">Expression </th><th align="left" valign="top">Description</th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">doc['field_name'].value</code></p></td><td align="left" valign="top"><p>The native value of the field. For example,
+are loaded to memory). Note, however, that the <code class="literal">doc[...]</code> notation only
+allows for simple valued fields (can’t return a json object from it)
+and makes sense only on non-analyzed or single term based fields.</p><p>The following data can be extracted from a field:</p><div class="informaltable"><table cellpadding="4px" border="1"><colgroup><col class="col_1" /><col class="col_2" /></colgroup><thead><tr><th align="left" valign="top">Expression </th><th align="left" valign="top">Description</th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">doc['field_name'].value</code></p></td><td align="left" valign="top"><p>The native value of the field. For example,
 if its a short type, it will be short.</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">doc['field_name'].values</code></p></td><td align="left" valign="top"><p>The native array values of the field. For
 example, if its a short type, it will be short[]. Remember, a field can
 have several values within a single doc. Returns an empty array if the

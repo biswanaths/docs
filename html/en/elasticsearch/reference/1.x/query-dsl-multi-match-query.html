@@ -176,7 +176,7 @@ but they use a <code class="literal">match_phrase</code> or <code class="literal
     "type":       "phrase_prefix",
     "fields":     [ "subject", "message" ]
   }
-}</pre><pre class="programlisting prettyprint lang-js">{
+}</pre><p>would be executed as:</p><pre class="programlisting prettyprint lang-js">{
   "dis_max": {
     "queries": [
       { "match_phrase_prefix": { "subject": "quick brown f" }},
