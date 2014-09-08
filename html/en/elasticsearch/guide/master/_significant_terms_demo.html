@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Significant Terms Demo</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Elasticsearch" /><link rel="up" href="significant-terms.html" title="Significant Terms" /><link rel="prev" href="significant-terms.html" title="Significant Terms" /><link rel="next" href="_controlling_memory_use_and_latency.html" title="Controlling memory use and latency" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link rel="shortcut icon" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/favicon.ico" /><link rel="stylesheet" id="prettify-gc-syntax-highlighter-css" href="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/prettify.css?ver=3.5.2" type="text/css" media="all" /><link rel="stylesheet" id="appStyles-css" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/css/main.css?ver=1395693666" type="text/css" media="all" /><script type="text/javascript" src="http://www.elasticsearch.org/wp-includes/js/jquery/jquery.js?ver=1.8.3"></script><link rel="stylesheet" href="http://www.elasticsearch.org/content/themes/elasticsearch-org/style.css" type="text/css" media="all" /><script src="//cdn.optimizely.com/js/281975433.js"></script><script src="//fast.wistia.com/static/iframe-api-v1.js"></script><script type="text/javascript">
+      jQuery(function() {
+        jQuery('div.navheader+div').css('minHeight',jQuery('div.toc').height()+'px');
+        jQuery('article.guide_content a[id]').each(function() { this.href='#'+this.id });
+      });
+    </script><link rel="stylesheet" type="text/css" href="styles.css?3" /></head><body class="single single-guide"><img src="http://ad.retargeter.com/seg?add=1235131&amp;t=2" width="1" height="1" style="position:absolute; visibility:hidden;" /><script type="text/javascript">
+        if(jQuery('body').data('cookie') != "eu" || jQuery.cookie('allowCookies')){
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-12395217-2']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    }</script><!--[if lt IE 8]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+      <![endif]--><header><nav role="navigation" id="mobile-nav-container" class="off-canvas-nav"><ul id="mobile-nav" class="menu"><li id="menu-item-75892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75892"><a href="/overview/">Overview</a><ul class="sub-menu"><li id="menu-item-75895" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75895"><a href="/overview/">Overview</a></li><li id="menu-item-68760" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68760"><a href="/overview/elasticsearch/">Elasticsearch</a></li><li id="menu-item-75894" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75894"><a href="/overview/marvel/">Marvel</a></li><li id="menu-item-68758" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68758"><a href="/overview/kibana/">Kibana</a></li><li id="menu-item-68756" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68756"><a href="/overview/kibana/installation/">Kibana Installation</a></li><li id="menu-item-68757" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68757"><a href="/overview/kibana/support/">Kibana Support</a></li><li id="menu-item-68759" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68759"><a href="/overview/logstash/">Logstash</a></li><li id="menu-item-74019" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74019"><a href="/overview/hadoop/">Hadoop</a></li><li id="menu-item-75893" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75893"><a href="/overview/elkdownloads/">ELK Downloads</a></li></ul></li><li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="/resources/">Resources</a><ul class="sub-menu"><li id="menu-item-76342" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76342"><a href="/guide/">Guide</a></li><li id="menu-item-4843" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4843"><a href="/videos/">Videos</a></li></ul></li><li id="menu-item-657" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-657"><a href="/community/">Community</a></li><li id="menu-item-68802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68802"><a href="/case-studies/">Case Studies</a></li><li id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45"><a href="/blog/">Blog</a></li><li id="menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a target="_blank" href="http://elasticsearch.com">Company</a></li></ul><ul class="add-on"><li><a href="/overview/elkdownloads/">Download</a></li></ul></nav><div class="container"><div id="header-inner"><h1 id="header-logo"><a class="faux" href="http://www.elasticsearch.org">Elasticsearch</a></h1><nav role="navigation" id="main-nav-container" class="main-nav"><ul id="top-nav" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75892"><a href="/overview/">Overview</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-53 current_page_item menu-item-55"><a href="/resources/">Resources</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-657"><a href="/community/">Community</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68802"><a href="/case-studies/">Case Studies</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45"><a href="/blog/">Blog</a></li><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a target="_blank" href="http://elasticsearch.com">Company</a></li></ul><ul class="add-on"><li><a class="btn btn-primary" href="/overview/elkdownloads/">Download</a></li></ul></nav><div class="slide-trigger navigation" id="nav-trigger" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><hr /><ul id="sub_nav"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76342"><a href="/guide/">Guide</a></li><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4843"><a href="/videos/">Videos</a></li></ul></div></div></header><div class="global_wrapper"><div class="page_content"><div class="container"><section id="search_container" class="active"><form id="blog_search" role="search" action="/" method="get"><div class="blog_search_wrapper"><input id="s" name="s" class="search_term" type="text" placeholder="search" autocomplete="off" tabindex="1" /><input type="submit" class="search_submit" value=" " /><ul id="results"></ul></div></form></section><section class="full_width guide"><article class="guide_content"><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Elasticsearch</a></span> » <span class="breadcrumb-link"><a href="aggregations.html">Aggregations </a></span> » <span class="breadcrumb-link"><a href="significant-terms.html">Significant Terms</a></span> » <span class="breadcrumb-node">Significant Terms Demo</span></div><div class="navheader"><span class="prev"><a href="significant-terms.html">
+              « 
+              Significant Terms</a>
+           
+        </span><span class="next">
+           
+          <a href="_controlling_memory_use_and_latency.html">Controlling memory use and latency
+               »
+            </a></span></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a id="_significant_terms_demo"></a>Significant Terms Demo<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/75_sigterms.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><div class="toc"><dl><dt><span class="chapter"><a href="_high_level_concepts.html">High-level concepts</a></span></dt><dt><span class="chapter"><a href="_aggregation_test_drive.html">Aggregation Test-drive</a></span></dt><dt><span class="chapter"><a href="_available_buckets_and_metrics.html">Available Buckets and Metrics</a></span></dt><dt><span class="chapter"><a href="_building_bar_charts.html">Building Bar Charts</a></span></dt><dt><span class="chapter"><a href="_looking_at_time.html">Looking at time</a></span></dt><dt><span class="chapter"><a href="_scoping_aggregations.html">Scoping Aggregations</a></span></dt><dt><span class="chapter"><a href="_filtering_queries_and_aggregations.html">Filtering Queries and Aggregations</a></span></dt><dt><span class="chapter"><a href="_sorting_multi_value_buckets.html">Sorting multi-value buckets</a></span></dt><dt><span class="chapter"><a href="_approximate_aggregations.html">Approximate Aggregations</a></span></dt><dt><span class="chapter"><a href="significant-terms.html">Significant Terms</a></span></dt><dt><span class="chapter"><a href="_controlling_memory_use_and_latency.html">Controlling memory use and latency</a></span></dt></dl></div><p>Because the Significant Terms (SigTerms) aggregation works by analyzing
+statistics, you need to have a certain threshold of data for it to become effective.
+That means we won’t be able to index a small amount of toy data for the demo.</p><p>Instead, we have a pre-prepared dataset of around 80,000 documents.  This is
+saved as a Snapshot (for more information about Snapshot and Restore, see
+<a class="xref" href="backing-up-your-cluster.html" title="Backing up your Cluster">Backing up your Cluster</a>) in our public demo repository.  You can "restore"
+this dataset into your cluster using these commands:</p><p>TODO — add information about the public repo</p><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>The dataset is around 50mb and may take some time to download.</p></div></div><p>In this demo, we are going to look at movie ratings by users of MovieLens.  At
+MovieLens, users make movie recommendations so that other users can find new
+movies to watch.  For this demo, we are going to recommend movies using SigTerms
+based on an input movie.</p><p>Let’s take a look at some sample data, to get a feel for what we are working with.
+There are two indices in this dataset, <code class="literal">mlmovies</code> and <code class="literal">mlratings</code>.  Let’s look
+at <code class="literal">mlmovies</code> first:</p><pre class="programlisting prettyprint lang-js">GET mlmovies/_search <a id="CO212-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+
+{
+   "took": 4,
+   "timed_out": false,
+   "_shards": {...},
+   "hits": {
+      "total": 10681,
+      "max_score": 1,
+      "hits": [
+         {
+            "_index": "mlmovies",
+            "_type": "mlmovie",
+            "_id": "2",
+            "_score": 1,
+            "_source": {
+               "offset": 2,
+               "bytes": 34,
+               "title": "Jumanji (1995)"
+            }
+         },
+         ....</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO212-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+Execute a search without a query, so that we can see a random sampling of docs
+</p></td></tr></table></div><p>Each document in <code class="literal">mlmovies</code> represents a single movie.  The two important pieces
+of data are the <code class="literal">_id</code> of the movie and the <code class="literal">title</code> of the movie.  You can ignore
+<code class="literal">offset</code> and <code class="literal">bytes</code>, they are artifacts of the process used to extract this
+data from the original csv files.</p><p>There are 10,681 movies in this dataset.  Now let’s look at <code class="literal">mlratings</code>:</p><pre class="programlisting prettyprint lang-js">GET mlratings/_search
+
+{
+   "took": 3,
+   "timed_out": false,
+   "_shards": {...},
+   "hits": {
+      "total": 69796,
+      "max_score": 1,
+      "hits": [
+         {
+            "_index": "mlratings",
+            "_type": "mlrating",
+            "_id": "00IC-2jDQFiQkpD6vhbFYA",
+            "_score": 1,
+            "_source": {
+               "offset": 1,
+               "bytes": 108,
+               "movie": [122,185,231,292,
+                  316,329,355,356,362,364,370,377,420,
+                  466,480,520,539,586,588,589,594,616
+               ],
+               "user": 1
+            }
+         },
+         ...</pre><p>Here we can see the recommendations of individual users.  Each document represents
+a single user, denoted by the <code class="literal">user</code> ID field.  The <code class="literal">movie</code> field holds a list
+of movies that this user watched and recommended.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_recommending_based_on_popularity"></a>Recommending based on Popularity<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/75_sigterms.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>The first strategy we could take is trying to recommend movies based on popularity.
+Given a particular movie, we find all users that recommended that movie.  Then
+we aggregate all their recommendations and take the top five most popular.</p><p>We can express that easily with a <code class="literal">terms</code> aggregation and some filtering.  Let’s
+look at <span class="emphasis"><em>Talladega Nights</em></span>, a comedy about NASCAR racing starring
+Will Ferrel.  Ideally, our recommender should find other comedies in a similar
+style (and more than likely also star Will Ferrel).</p><p>First we need to find <span class="emphasis"><em>Talladega Nights</em></span>'s ID:</p><pre class="programlisting prettyprint lang-js">GET mlmovies/_search
+{
+  "query": {
+    "match": {
+      "title": "Talladega Nights"
+    }
+  }
+}
+
+    ...
+    "hits": [
+     {
+        "_index": "mlmovies",
+        "_type": "mlmovie",
+        "_id": "46970", <a id="CO213-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+        "_score": 3.658795,
+        "_source": {
+           "offset": 9575,
+           "bytes": 74,
+           "title": "Talladega Nights: The Ballad of Ricky Bobby (2006)"
+        }
+     },
+    ...</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO213-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+<span class="emphasis"><em>Talladega Nights</em></span> is ID <code class="literal">46970</code>
+</p></td></tr></table></div><p>Armed with the ID, we can now filter the ratings and apply our <code class="literal">terms</code> aggregation
+to find the most popular movies from people that also like <span class="emphasis"><em>Talladega Nights</em></span>:</p><pre class="programlisting prettyprint lang-js">GET mlratings/_search?search_type=count <a id="CO214-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+{
+  "query": {
+    "filtered": {
+      "filter": {
+        "term": {
+          "movie": 46970 <a id="CO214-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>
+        }
+      }
+    }
+  },
+  "aggs": {
+    "most_popular": {
+      "terms": {
+        "field": "movie", <a id="CO214-3"></a><span><img src="images/icons/callouts/3.png" alt="" /></span>
+        "size": 6
+      }
+    }
+  }
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO214-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+We execute our query on <code class="literal">mlratings</code> this time, and specify <code class="literal">search_type=count</code>
+since we are only interested in the aggregation results
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO214-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+Apply a filter on the ID corresponding to <span class="emphasis"><em>Talladega Nights</em></span>.
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO214-3"><span><img src="images/icons/callouts/3.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+Finally, find the most popular movies using a <code class="literal">terms</code> bucket
+</p></td></tr></table></div><p>We perform the search on the <code class="literal">mlratings</code> index, and apply a filter for the ID of
+<span class="emphasis"><em>Talladega Nights</em></span>.  Since aggregations operate on query scope, this will
+effectively filter the aggregation results to only the users who recommended
+<span class="emphasis"><em>Talladega Nights</em></span>. Finally, we execute a <code class="literal">terms</code> aggregation to bucket the most
+popular movies.  We are requesting the top six results, since it is likely
+that <span class="emphasis"><em>Talladega Nights</em></span> itself will be returned as a hit (and we don’t want
+to recommend the same movie).</p><p>The results come back like so:</p><pre class="programlisting prettyprint lang-js">{
+...
+   "aggregations": {
+      "most_popular": {
+         "buckets": [
+            {
+               "key": 46970,
+               "key_as_string": "46970",
+               "doc_count": 271
+            },
+            {
+               "key": 2571,
+               "key_as_string": "2571",
+               "doc_count": 197
+            },
+            {
+               "key": 318,
+               "key_as_string": "318",
+               "doc_count": 196
+            },
+            {
+               "key": 296,
+               "key_as_string": "296",
+               "doc_count": 183
+            },
+            {
+               "key": 2959,
+               "key_as_string": "2959",
+               "doc_count": 183
+            },
+            {
+               "key": 260,
+               "key_as_string": "260",
+               "doc_count": 90
+            }
+         ]
+      }
+   }
+...</pre><p>We need to correlate these back to their original titles, which can be done
+with a simple filtered query:</p><pre class="programlisting prettyprint lang-js">GET mlmovies/_search
+{
+  "query": {
+    "filtered": {
+      "filter": {
+        "ids": {
+          "values": [2571,318,296,2959,260]
+        }
+      }
+    }
+  }
+}</pre><p>And finally, we end up with the following list:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+Matrix, The
+</li><li class="listitem">
+Shawshank Redemption
+</li><li class="listitem">
+Pulp Fiction
+</li><li class="listitem">
+Fight Club
+</li><li class="listitem">
+Star Wars: Episode IV - A New Hope
+</li></ol></div><p>Ok…well that is certainly a good list!  I like all of those movies.  But that’s
+the problem actually: most <span class="emphasis"><em>everyone</em></span> likes that list.  Those movies are universally
+well liked, which means they are popular on everyone’s recommendations.  The
+list is basically a recommendation of popular movies, not recommendations related
+to <span class="emphasis"><em>Talladega Nights</em></span>.</p><p>This is easily verified by running the aggregation again, but without the filter
+on <span class="emphasis"><em>Talladega Nights</em></span>.  This will give a top-5 most popular movie list:</p><pre class="programlisting prettyprint lang-js">GET mlratings/_search?search_type=count
+{
+  "aggs": {
+    "most_popular": {
+      "terms": {
+        "field": "movie",
+        "size": 5
+      }
+    }
+  }
+}</pre><p>Which returns a list that is very similar:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+Shawshank Redemption
+</li><li class="listitem">
+Silence of the Lambs, The
+</li><li class="listitem">
+Pulp Fiction
+</li><li class="listitem">
+Forrest Gump
+</li><li class="listitem">
+Star Wars: Episode IV - A New Hope
+</li></ol></div><p>Clearly, just checking the most popular movies is not sufficient to build a good,
+discriminating recommender.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_recommending_based_on_statistics"></a>Recommending based on Statistics<a href="https://github.com/elasticsearch/elasticsearch-definitive-guide/edit/master/300_Aggregations/75_sigterms.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>Now that the scene is set, let’s try using SigTerms.  SigTerms will analyze
+the group of people that enjoy <span class="emphasis"><em>Talladega Nights</em></span> (the "foreground" group) and
+determine what movies are most popular.  It will then construct a list of
+popular films for everyone (the "background" group) and compare the two.</p><p>The statistical anomalies will be the movies that are <span class="emphasis"><em>over represented</em></span> in the
+foreground compared to the background.  Theoretically, this should be a list
+of comedies, since people who enjoy Will Ferrel comedies will recommend them
+at a higher rate than the background population of people.</p><p>Let’s give it a shot:</p><pre class="programlisting prettyprint lang-js">GET mlratings/_search?search_type=count
+{
+  "query": {
+    "filtered": {
+      "filter": {
+        "term": {
+          "movie": 46970
+        }
+      }
+    }
+  },
+  "aggs": {
+    "most_sig": {
+      "significant_terms": { <a id="CO215-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+        "field": "movie",
+        "size": 6
+      }
+    }
+  }
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO215-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+The setup is nearly identical — we just use <code class="literal">significant_terms</code> instead of
+<code class="literal">terms</code>
+</p></td></tr></table></div><p>As you can see, the query is nearly the same.  We filter for users that
+liked <span class="emphasis"><em>Talladega Nights</em></span>; this forms the "foreground" group.  By default,
+SigTerms will use the entire index as the "background", so we don’t need to do
+anything special.</p><p>The results come back as a list of buckets similar to <code class="literal">terms</code>, but with some
+extra metadata:</p><pre class="programlisting prettyprint lang-js">...
+   "aggregations": {
+      "most_sig": {
+         "doc_count": 271, <a id="CO216-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+         "buckets": [
+            {
+               "key": 46970,
+               "key_as_string": "46970",
+               "doc_count": 271,
+               "score": 256.549815498155,
+               "bg_count": 271
+            },
+            {
+               "key": 52245, <a id="CO216-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>
+               "key_as_string": "52245",
+               "doc_count": 59, <a id="CO216-3"></a><span><img src="images/icons/callouts/3.png" alt="" /></span>
+               "score": 17.66462367106966,
+               "bg_count": 185 <a id="CO216-4"></a><span><img src="images/icons/callouts/4.png" alt="" /></span>
+            },
+            {
+               "key": 8641,
+               "key_as_string": "8641",
+               "doc_count": 107,
+               "score": 13.884387742677438,
+               "bg_count": 762
+            },
+            {
+               "key": 58156,
+               "key_as_string": "58156",
+               "doc_count": 17,
+               "score": 9.746428133759462,
+               "bg_count": 28
+            },
+            {
+               "key": 52973,
+               "key_as_string": "52973",
+               "doc_count": 95,
+               "score": 9.65770100311672,
+               "bg_count": 857
+            },
+            {
+               "key": 35836,
+               "key_as_string": "35836",
+               "doc_count": 128,
+               "score": 9.199001116457955,
+               "bg_count": 1610
+            }
+         ]
+ ...</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO216-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+The top-level <code class="literal">doc_count</code> shows the number of docs in the "foreground" group
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO216-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+Each bucket lists the key (e.g. movie ID) being aggregated
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO216-3"><span><img src="images/icons/callouts/3.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+A <code class="literal">doc_count</code> for that bucket.
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO216-4"><span><img src="images/icons/callouts/4.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+And a background count, which shows the rate at which this value appears in
+the entire "background"
+</p></td></tr></table></div><p>You can see that the first bucket we get back is <span class="emphasis"><em>Talladega Nights</em></span>.  It is
+found in all 271 documents, which is not surprising.  Let’s look at the next bucket:
+key <code class="literal">52245</code>.</p><p>This ID corresponds with <span class="emphasis"><em>Blades of Glory</em></span>, a comedy about male figure skating
+and also stars Will Ferrel.  We can see that it was recommended 59 times in the
+the people who also liked <span class="emphasis"><em>Talladega Nights</em></span>.  This means that 21% of the "foreground"
+group recommended <span class="emphasis"><em>Blades of Glory</em></span> (<code class="literal">59 / 271 = 0.2177</code>).</p><p>In contrast, <span class="emphasis"><em>Blades of Glory</em></span> was only recommended 185 times in the entire dataset,
+which equates to a mere 0.26% (<code class="literal">185 / 69796 = 0.00265</code>).  <span class="emphasis"><em>Blades of Glory</em></span> is therefore
+a statistical anomaly…it is uncommonly common in the group of people that
+like <span class="emphasis"><em>Talladega Nights</em></span>.  We just found a good recommendation!</p><p>If we look at the entire list, they are all comedies that would fit as good
+recommendations (many of which also star Will Ferrel):</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+Blades of Glory
+</li><li class="listitem">
+Anchorman: The Legend of Ron Burgundy
+</li><li class="listitem">
+Semi-Pro
+</li><li class="listitem">
+Knocked Up
+</li><li class="listitem">
+40 Year Old Virgin
+</li></ol></div><p>This is just one example of the power of Significant Terms.  Once you start using
+SigTerms, you start to find many situations where you don’t what the most popular…
+you want the most uncommonly common.  This simple aggregation can uncover some
+surprisingly sophisticated trends in your data.</p></div></div><div class="navfooter"><span class="prev"><a href="significant-terms.html">
+              « 
+              Significant Terms</a>
+           
+        </span><span class="next">
+           
+          <a href="_controlling_memory_use_and_latency.html">Controlling memory use and latency
+               »
+            </a></span></div></article></section></div></div></div><footer><div id="footer_container" class="full_wrapper"><div class="container"><nav role="navigation"><ul id="footer_nav" class="menu"><li id="menu-item-36" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-36"><a target="_blank" href="http://elasticsearch.com">Company</a></li><li id="menu-item-74980" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74980"><a href="/resources/">Resources</a></li><li id="menu-item-3106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3106"><a href="/terms-of-use/">Terms</a></li><li id="menu-item-3107" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3107"><a href="/privacy-and-cookie-policy/">Privacy</a></li><li id="menu-item-3105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3105"><a href="/contact/">Contact</a></li><li id="menu-item-39" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39"><a href="/blog/">Blog</a></li></ul></nav><div id="social"><a href="https://twitter.com/elasticsearch" class="social_icons" target="_blank"><i class="twitter"></i></a><a href="https://www.facebook.com/elasticsearch" class="social_icons" target="_blank"><i class="facebook"></i></a></div><div id="footer_form"><label class="form_label">Sign up for updates!</label><div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_4"><a id="gf_4" name="gf_4" class="gform_anchor"></a><form method="post" enctype="multipart/form-data" target="gform_ajax_frame_4" id="gform_4" action="/empty-template/#gf_4"><div class="gform_body"><ul id="gform_fields_4" class="gform_fields top_label description_below"><li id="field_4_6" class="gfield               gfield_contains_required"><label class="gfield_label" for="input_4_6">enter you email<span class="gfield_required">*</span></label><div class="ginput_container"><input name="input_6" id="input_4_6" type="email" value="" class="medium" tabindex="50" /></div></li><li id="field_4_2" class="gfield     gform_hidden"><input name="input_2" id="input_4_2" type="hidden" class="gform_hidden" value="813-MAM-392" /></li><li id="field_4_3" class="gfield     gform_hidden"><input name="input_3" id="input_4_3" type="hidden" class="gform_hidden" value="WEB.org" /></li><li id="field_4_4" class="gfield     gform_hidden"><input name="input_4" id="input_4_4" type="hidden" class="gform_hidden" value="WEB.org - Footer - Updates" /></li></ul></div><script type="text/javascript">//<![CDATA[
+            jQuery(function(){
+                jQuery('#gform_submit_button_4').click( function() {
+                    if(window["gf_submitting_4"]){
+                        return false;
+                    }
+                    if( !jQuery("#gform_4")[0].checkValidity || jQuery("#gform_4")[0].checkValidity()){
+                        window["gf_submitting_4"]=true;
+                    }
+                });
+            });
+            //]]></script><div class="gform_footer top_label"><input type="submit" id="gform_submit_button_4" class="button gform_button" value="Submit" tabindex="51" /><input type="hidden" name="gform_ajax" value="form_id=4&amp;title=&amp;description=" /><input type="hidden" class="gform_hidden" name="is_submit_4" value="1" /><input type="hidden" class="gform_hidden" name="gform_submit" value="4" /><input type="hidden" class="gform_hidden" name="gform_unique_id" value="" /><input type="hidden" class="gform_hidden" name="state_4" value="WyJhOjA6e30iLCJmMjE2MmM2ZjUxYmQ4M2Q3ZmMzNzVlNmY2ODYyZTI2NCJd" /><input type="hidden" class="gform_hidden" name="gform_target_page_number_4" id="gform_target_page_number_4" value="0" /><input type="hidden" class="gform_hidden" name="gform_source_page_number_4" id="gform_source_page_number_4" value="1" /><input type="hidden" name="gform_field_values" value="" /></div></form></div><iframe style="display:none;width:0px; height:0px;" src="about:blank" name="gform_ajax_frame_4" id="gform_ajax_frame_4"></iframe><script type="text/javascript">//<![CDATA[
+                    function gformInitSpinner_4(){jQuery('#gform_4').submit(function(){if(jQuery('#gform_ajax_spinner_4').length == 0){jQuery('#gform_submit_button_4, #gform_wrapper_4 .gform_next_button, #gform_wrapper_4 .gform_image_button').after('<' + 'img id="gform_ajax_spinner_4"  class="gform_ajax_spinner" src="http://www.elasticsearch.org/content/plugins/gravityforms/images/spinner.gif" alt="" />'); }} );}jQuery(document).ready(function($){gformInitSpinner_4();jQuery('#gform_ajax_frame_4').load( function(){var contents = jQuery(this).contents().find('*').html();var is_postback = contents.indexOf('GF_AJAX_POSTBACK') >= 0;if(!is_postback){return;}var form_content = jQuery(this).contents().find('#gform_wrapper_4');var is_redirect = contents.indexOf('gformRedirect(){') >= 0;var is_form = !(form_content.length <= 0 || is_redirect);if(is_form){jQuery('#gform_wrapper_4').html(form_content.html());jQuery(document).scrollTop(jQuery('#gform_wrapper_4').offset().top);if(window['gformInitDatepicker']) {gformInitDatepicker();}if(window['gformInitPriceFields']) {gformInitPriceFields();}var current_page = jQuery('#gform_source_page_number_4').val();gformInitSpinner_4();jQuery(document).trigger('gform_page_loaded', [4, current_page]);window['gf_submitting_4'] = false;}else if(!is_redirect){var confirmation_content = jQuery(this).contents().find('#gforms_confirmation_message').html();if(!confirmation_content){confirmation_content = contents;}setTimeout(function(){jQuery('#gform_wrapper_4').replaceWith('<' + 'div id=\'gforms_confirmation_message\' class=\'gform_confirmation_message_4\'' + '>' + confirmation_content + '<' + '/div' + '>');jQuery(document).scrollTop(jQuery('#gforms_confirmation_message').offset().top);jQuery(document).trigger('gform_confirmation_loaded', [4]);window['gf_submitting_4'] = false;}, 50);}else{jQuery('#gform_4').append(contents);if(window['gformRedirect']) {gformRedirect();}}jQuery(document).trigger('gform_post_render', [4, current_page]);} );} );</script><script type='text/javascript'> jQuery(document).ready(function(){jQuery(document).trigger('gform_post_render', [4, 1]) } );
+                    //]]></script></div><div class="legal"><p>© 2014 All Rights Reserved - Elasticsearch </p><p>Apache Lucene and Lucene are trademarks of the Apache Software Foundation</p></div></div></div></footer><section id="cookie"><div class="container"><div class="eu">
+                Elasticsearch uses cookies to provide a better user experience to visitors of our website. Read more about our cookie policy <a href="/privacy-and-cookie-policy/">here.</a><a data-action="accept" class="cta">Accept cookies</a></div><div class="uk">
+                Elasticsearch uses cookies to provide a better user experience to visitors of our website. Read more about our cookie policy <a href="/privacy-and-cookie-policy/">here.</a><a data-action="dismiss" class="cta dismiss">X</a></div></div></section><script type="text/javascript">
+      if (window.aiModifyParent) aiModifyParent();
+      (function ($, $a, $title, $list) {
+        $a = $('[id^="js-api-method-index"]');
+        if (!$a.size()) return;
+        $('.guide_content').addClass('js-client-docs');
+        $list = $a.siblings('.itemizedlist').detach();
+        $title = $(document.createElement('h2')).text('api methods')
+        $a.parent().remove();
+        $('.toc').first().append($(document.createElement('div')).addClass('js-api-method-index').append($title).append($list));
+      }(jQuery));
+    </script><script type="text/javascript">if(window.aiModifyParent) {aiModifyParent();}</script><script type="text/javascript" src="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/prettify.js?ver=3.5.2"></script><script type="text/javascript" src="http://www.elasticsearch.org/content/plugins/prettify-gc-syntax-highlighter/launch.js?ver=3.5.2"></script><script type="text/javascript" src="http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201413"></script><script type="text/javascript" src="http://www.elasticsearch.org/content/themes/elasticsearch-org/js/global.min.js?ver=1395082598"></script><script type="text/javascript" src="http://www.elasticsearch.org/content/themes/elasticsearch-org/js/froogaloop.min.js?ver=1"></script><script type="text/javascript">
+if(jQuery('body').data('cookie') != "eu" || jQuery.cookie('allowCookies')){
+    document.write(unescape("%3Cscript src='" + document.location.protocol +
+    "//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+}
+</script><script>
+if(jQuery('body').data('cookie') != "eu" || jQuery.cookie('allowCookies')){
+    Munchkin.init('813-MAM-392');
+
+    // crazyegg
+    setTimeout(function(){var a=document.createElement("script");
+    var b=document.getElementsByTagName("script")[0];
+    a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0014/4686.js?"+Math.floor(new Date().getTime()/3600000);
+    a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+}
+</script></body></html>
