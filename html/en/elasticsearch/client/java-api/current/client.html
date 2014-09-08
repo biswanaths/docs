@@ -41,11 +41,11 @@ Start full nodes when you want to run Elasticsearch embedded in your
   own application  or when you want to launch unit or integration tests
 </li></ul></div><p>Obtaining an elasticsearch <code class="literal">Client</code> is simple. The most common way to
 get a client is by:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-Creating an embedded <a class="ulink" href="#nodeclient" target="_top"><code class="literal">Node</code></a> that acts as a node
+Creating an embedded <a class="link" href="client.html#node-client" title="Node Client"><code class="literal">Node</code></a> that acts as a node
 within a cluster.
 </li><li class="listitem">
 Requesting a <code class="literal">Client</code> from your embedded <code class="literal">Node</code>.
-</li></ol></div><p>Another manner is by creating a <a class="ulink" href="#transport-client" target="_top"><code class="literal">TransportClient</code></a>
+</li></ol></div><p>Another manner is by creating a <a class="link" href="client.html#transport-client" title="Transport Client"><code class="literal">TransportClient</code></a>
 that connects to a cluster.</p><p><span class="strong"><strong>Important:</strong></span></p><div class="blockquote"><blockquote class="blockquote"><p>Please note that you are encouraged to use the same version on client
 and cluster sides. You may hit some incompatibility issues when mixing
 major versions.</p></blockquote></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a id="node-client"></a>Node Client<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/java-api/client.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><p>Instantiating a node based client is the simplest way to get a <code class="literal">Client</code>
@@ -113,8 +113,7 @@ client.close();</pre><p>Note that you have to set the cluster name if you use on
 "elasticsearch":</p><pre class="programlisting prettyprint lang-java">Settings settings = ImmutableSettings.settingsBuilder()
         .put("cluster.name", "myClusterName").build();
 Client client =    new TransportClient(settings);
-//Add transport addresses and do something with the client...</pre><p>Or using <code class="literal">elasticsearch.yml</code> file as shown in the <a class="ulink" href="#nodeclient" target="_top">Node
-Client section</a></p><p>The client allows to sniff the rest of the cluster, and add those into
+//Add transport addresses and do something with the client...</pre><p>Or using <code class="literal">elasticsearch.yml</code> file as shown in <a class="xref" href="client.html#node-client" title="Node Client">Node Client</a></p><p>The client allows to sniff the rest of the cluster, and add those into
 its list of machines to use. In this case, note that the IP addresses
 used will be the ones that the other nodes were started with (the
 "publish" address). In order to enable it, set the
