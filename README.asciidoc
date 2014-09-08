@@ -97,7 +97,7 @@ WARNING: The `output/dir/` will be deleted and recreated, so don't point it at a
 
 === Viewing the docs
 
-To view the generated docs in your web broweser immediately after
+To view the generated docs in your web browser immediately after
 the build has finished, use the `--open` parameter:
 
 [source,shell]
