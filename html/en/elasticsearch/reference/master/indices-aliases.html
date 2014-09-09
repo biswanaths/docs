@@ -65,8 +65,19 @@ actions:</p><pre class="programlisting prettyprint lang-js">curl -XPOST 'http://
 }'</pre><p>It is an error to index to an alias which points to more than one index.</p><h3><a id="filtered"></a>Filtered Aliases<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/indices/aliases.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>Aliases with filters provide an easy way to create different "views" of
 the same index. The filter can be defined using Query DSL and is applied
 to all Search, Count, Delete By Query and More Like This operations with
-this alias. Here is an example:</p><pre class="programlisting prettyprint lang-js">curl -XPOST 'http://localhost:9200/_aliases' -d '
-{
+this alias.</p><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><h4>Coming in 1.4.0.</h4><p>Fields referred to in alias filters must exist in the mappings of the index/indices pointed to by the alias.</p></div></div><p>To create a filtered alias, first we need to ensure that the fields already
+exist in the mapping:</p><pre class="programlisting prettyprint lang-js">curl -XPUT 'http://localhost:9200/test1' -d '{
+  "mappings": {
+    "type1": {
+      "properties": {
+        "user" : {
+          "type": "string",
+          "index": "not_analyzed"
+        }
+      }
+    }
+  }
+}</pre><p>Now we can create an alias that uses a filter on field <code class="literal">user</code>:</p><pre class="programlisting prettyprint lang-js">curl -XPOST 'http://localhost:9200/_aliases' -d '{
     "actions" : [
         {
             "add" : {
@@ -140,14 +151,33 @@ An optional routing that can be associated with an alias.
 <p>
 An optional filter that can be associated with an alias.
 </p>
-</td></tr></tbody></table></div><p>You can also use the plural <code class="literal">_aliases</code>.</p><h4><a id="_examples"></a>Examples:<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/indices/aliases.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Adding time based alias:</p><pre class="programlisting prettyprint lang-js">curl -XPUT 'localhost:9200/logs_201305/_alias/2013'</pre><p>Adding user alias:</p><pre class="programlisting prettyprint lang-js">curl -XPUT 'localhost:9200/users/_alias/user_12' -d '{
+</td></tr></tbody></table></div><p>You can also use the plural <code class="literal">_aliases</code>.</p><h4><a id="_examples"></a>Examples:<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/indices/aliases.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+Adding time based alias
+</span></dt><dd><pre class="programlisting prettyprint lang-js">curl -XPUT 'localhost:9200/logs_201305/_alias/2013'</pre></dd><dt><span class="term">
+Adding a user alias
+</span></dt><dd><p class="simpara">First create the index and add a mapping for the <code class="literal">user_id</code> field:</p><pre class="programlisting prettyprint lang-js">curl -XPUT 'localhost:9200/users' -d '{
+    "mappings" : {
+        "user" : {
+            "properties" : {
+                "user_id" : {"type" : "integer"}
+            }
+        }
+    }
+}'</pre><p class="simpara">Then add the alias for a specific user:</p><pre class="programlisting prettyprint lang-js">curl -XPUT 'localhost:9200/users/_alias/user_12' -d '{
     "routing" : "12",
     "filter" : {
         "term" : {
             "user_id" : 12
         }
     }
-}'</pre><h3><a id="alias-index-creation"></a>Aliases during index creation<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/indices/aliases.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>Added in 1.1.0.</p></div></div><p>Aliases can also be specified during <a class="link" href="indices-create-index.html#create-index-aliases" title="Aliasesedit">index creation</a>:</p><pre class="programlisting prettyprint lang-js">curl -XPUT localhost:9200/logs_20142801 -d '{
+}'</pre></dd></dl></div><h3><a id="alias-index-creation"></a>Aliases during index creation<a href="https://github.com/elasticsearch/elasticsearch/edit/master/docs/reference/indices/aliases.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>Added in 1.1.0.</p></div></div><p>Aliases can also be specified during <a class="link" href="indices-create-index.html#create-index-aliases" title="Aliasesedit">index creation</a>:</p><pre class="programlisting prettyprint lang-js">curl -XPUT localhost:9200/logs_20142801 -d '{
+    "mappings" : {
+        "type" : {
+            "properties" : {
+                "year" : {"type" : "integer"}
+            }
+        }
+    },
     "aliases" : {
         "current_day" : {},
         "2014" : {
