@@ -81,7 +81,7 @@ over-merge (i.e., cascade merges).</p><p>This policy has the following settings:
         &gt;= than the <code class="literal">max_merge_at_once</code> otherwise you’ll force too many merges to
         occur.
 </dd><dt><span class="term">
-<code class="literal">index.reclaim_deletes_weight</code>
+<code class="literal">index.merge.policy.reclaim_deletes_weight</code>
 </span></dt><dd>
         Controls how aggressively merges that reclaim more deletions are favored.
         Higher values favor selecting merges that reclaim deletions. A value of
