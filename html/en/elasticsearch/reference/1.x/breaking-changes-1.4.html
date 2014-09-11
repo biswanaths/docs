@@ -50,7 +50,8 @@ no warmers.  This ensures that the following two examples are equivalent:</p><pr
 curl -XGET 'http://localhost:9200/_warmers'</pre><p>Similarly, the <a class="link" href="indices-aliases.html#alias-retrieving" title="Retrieving existing aliasesedit">get alias api</a> will return a section for <code class="literal">aliases</code> even if there are
 no aliases.  This ensures that the following two examples are equivalent:</p><pre class="programlisting prettyprint lang-js">curl -XGET 'http://localhost:9200/_all/_aliases'
 
-curl -XGET 'http://localhost:9200/_aliases'</pre></div></div><div class="navfooter"><span class="prev"><a href="breaking-changes-1.x.html">
+curl -XGET 'http://localhost:9200/_aliases'</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_bulk_udp"></a>Bulk UDP<a href="https://github.com/elasticsearch/elasticsearch/edit/1.x/docs/reference/migration/migrate_1_x.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p><a class="link" href="docs-bulk-udp.html" title="Bulk UDP API">Bulk UDP</a> has been deprecated and will be removed in 2.0.
+You should use <a class="link" href="docs-bulk.html" title="Bulk API">the standard bulk API</a> instead.</p></div></div><div class="navfooter"><span class="prev"><a href="breaking-changes-1.x.html">
               « 
               Breaking changes in 1.x</a>
            
